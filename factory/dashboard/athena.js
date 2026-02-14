@@ -14,6 +14,7 @@ import { deleteLocalProject, deleteRemoteRepo } from '../5-engine/cleanup-wizard
 import { AthenaProcessManager } from '../5-engine/lib/ProcessManager.js';
 import { AthenaConfigManager } from '../5-engine/lib/ConfigManager.js';
 import { AthenaLogManager } from '../5-engine/lib/LogManager.js';
+import { AthenaSecretManager } from '../5-engine/lib/SecretManager.js';
 import {
     generateDataStructureAPI,
     generateParserInstructionsAPI,
@@ -30,6 +31,7 @@ const root = path.resolve(__dirname, '..');
 const configManager = new AthenaConfigManager(root);
 const pm = new AthenaProcessManager(root);
 const lm = new AthenaLogManager(root);
+const sm = new AthenaSecretManager(root);
 
 // --- MULTER CONFIG (voor uploads) ---
 const storage = multer.diskStorage({
@@ -85,6 +87,22 @@ app.post('/api/system/logs/rotate', async (req, res) => {
 app.post('/api/system/logs/clear', (req, res) => {
     const result = lm.clearAll();
     res.json({ success: true, ...result });
+});
+
+app.post('/api/system/secrets/sync', async (req, res) => {
+    try {
+        const { GITHUB_USER, GITHUB_ORG } = process.env;
+        const repoName = path.basename(path.resolve(root, '..')); // bv. "athena-x"
+        const owner = GITHUB_ORG || GITHUB_USER;
+        const fullRepo = `${owner}/${repoName}`;
+
+        console.log(`[SECRETS] Start sync voor repo: ${fullRepo}`);
+        const logs = await sm.syncSecrets(fullRepo);
+        res.json({ success: true, logs });
+    } catch (e) {
+        console.error("[SECRETS] Fout:", e.message);
+        res.status(500).json({ success: false, error: e.message });
+    }
 });
 
 app.get('/api/projects', (req, res) => {

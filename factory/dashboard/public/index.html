@@ -573,9 +573,12 @@
                             </div>
                         </div>
 
-                        <div class="form-footer mt-20">
-                            <button type="submit" class="primary-btn full-width">
+                        <div class="form-footer mt-20" style="display: flex; gap: 10px;">
+                            <button type="submit" class="primary-btn flex-1">
                                 <i class="fa-solid fa-save"></i> Wijzigingen Opslaan
+                            </button>
+                            <button type="button" id="sync-secrets-btn" onclick="syncSecretsToGitHub()" class="secondary-btn flex-1" style="border-color: var(--purple); color: var(--purple);">
+                                <i class="fa-solid fa-lock"></i> Sync naar GitHub Actions
                             </button>
                         </div>
                     </form>

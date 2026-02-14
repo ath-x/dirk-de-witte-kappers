@@ -2133,6 +2133,35 @@ async function updateLogStatus() {
     }
 }
 
+async function syncSecretsToGitHub() {
+    const btn = document.getElementById('sync-secrets-btn');
+    const log = document.getElementById('settings-log');
+    
+    if (!confirm("Dit pusht je lokale GITHUB_PAT en GOOGLE tokens naar GitHub Actions Secrets. Doorgaan?")) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met sync...';
+    log.classList.remove('hidden');
+    log.innerHTML = '<span class="accent">⏳ Starten van secret synchronisatie via GitHub CLI...</span>';
+
+    try {
+        const res = await fetch(`${API}/system/secrets/sync`, { method: 'POST' });
+        const data = await res.json();
+
+        if (data.success) {
+            log.innerHTML = `<div style="color: var(--success); font-weight: bold; margin-bottom: 10px;">✅ Secret Sync Voltooid!</div>` + 
+                           `<pre style="font-size: 0.7rem; color: var(--text-muted); text-align: left;">${data.logs.join('\n')}</pre>`;
+        } else {
+            log.innerHTML = `<span style="color: var(--error);">❌ Sync mislukt: ${data.error}</span>`;
+        }
+    } catch (e) {
+        log.innerHTML = `<span style="color: var(--error);">❌ Netwerkfout tijdens sync.</span>`;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-cloud-lock"></i> Sync naar GitHub Actions';
+    }
+}
+
 // --- SITETYPE WIZARD ---
 
 let sitetypeData = {
