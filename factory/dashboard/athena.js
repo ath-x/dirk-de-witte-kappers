@@ -13,6 +13,7 @@ import { linkGoogleSheet } from '../5-engine/generate-url-sheet.js';
 import { deleteLocalProject, deleteRemoteRepo } from '../5-engine/cleanup-wizard.js';
 import { AthenaProcessManager } from '../5-engine/lib/ProcessManager.js';
 import { AthenaConfigManager } from '../5-engine/lib/ConfigManager.js';
+import { AthenaLogManager } from '../5-engine/lib/LogManager.js';
 import {
     generateDataStructureAPI,
     generateParserInstructionsAPI,

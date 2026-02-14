@@ -1,4 +1,4 @@
-# Developer Manual - Athena CMS Factory (v7.6.1)
+# Developer Manual - Athena CMS Factory (v7.9.2)
 
 ## Two-Track Strategy (Docked vs Autonomous)
 Since v6.2, Athena has maintained a strict separation in the architecture of sitetypes and templates. This ensures maximum flexibility when choosing between centralized management or complete independence.
@@ -15,7 +15,7 @@ The 'Autonomous' track is designed for sites that must operate completely indepe
 
 ---
 
-## 🏆 The "Golden Standard" (v7.4+)
+## 🏆 The "Golden Standard" (v7.9+)
 Since v7.4, Athena has employed a standardized approach to site identity and contact information to prevent inconsistencies in headers and footers.
 
 ### 1. `site_settings.json` (Array format)
@@ -30,7 +30,7 @@ Instead of hiding contact details in a hero or intro section, we use a dedicated
 
 ---
 
-## 🖼️ Media Binding Best Practices (v7.4.3)
+## 🖼️ Media Binding Best Practices
 To prevent the Athena Editor from mistaking a media slot for a text field ("Edit Text" modal), the following rules apply:
 
 1.  **Bind-on-Target**: ALWAYS place `data-dock-bind` and `data-dock-type="media"` directly on the `<img>` or `<video>` tag. Use the `EditableMedia` component, which handles this internally.
@@ -41,13 +41,13 @@ To prevent the Athena Editor from mistaking a media slot for a text field ("Edit
 ---
 
 ## 🔍 Smart Asset Discovery & Data Handover
-To ensure generated sites are not missing images or data, the engine (`factory.js`) includes two automatic safety mechanisms:
+To ensure generated sites are not missing images or data, the engine uses `AssetScavenger` (via `ProcessManager`):
 
 ### 1. Guaranteed Data Handover
-During site creation, the `input/[project]/json-data/` directory is copied directly to the new site's `src/data/` with high priority. This occurs via a hard `fs.cpSync` before any synchronization with external scripts or Google Sheets.
+During site creation, the `input/[project]/json-data/` directory is copied directly to the new site's `src/data/` with high priority. This occurs via a hard `fs.cpSync` before any synchronization.
 
 ### 2. Automatic Asset Scavenging
-After data handover, the engine runs a `scavengeAssets` routine:
+After data handover, the engine runs the `AssetScavenger` routine:
 - **Scan**: All JSON files in `src/data/` are scanned for strings ending in media extensions (`.jpg`, `.png`, `.mp4`, etc.).
 - **Search**: The engine recursively searches for these files in:
     1. `input/[project]/images/`
@@ -57,25 +57,17 @@ After data handover, the engine runs a `scavengeAssets` routine:
 
 ---
 
-## ⏪ Undo/Redo Engine (v7.5)
+## ⏪ Undo/Redo Engine
 The Athena Dock features a robust Undo/Redo system (`Ctrl+Z` / `Ctrl+Y`) to quickly recover from editing errors.
 
 ### 1. How it Works
 - **History Stack**: Changes are stored in a stack within `DockFrame.jsx`.
-- **RAM Limit**: To stay within the **4GB RAM limit**, only the last **20 actions** are preserved.
+- **Efficiency**: Although modern hardware (16GB RAM) allows for larger stacks, we optimize for speed by preserving the last **20 actions**.
 - **Silent Saving**: During an undo/redo, data is pushed to the server with the `silent: true` flag, preventing a full Dock reload.
-
-### 2. Supported Actions
-| Action | Type | Description |
-| :--- | :--- | :--- |
-| **Text/Media** | Update | Changes to titles, texts, or images. |
-| **Design/Colors** | Update | Adjustments in the DesignControls (left sidebar). |
-| **Delete** | Delete/Restore | On 'delete', the full object is saved. Undo activates the `restore` API. |
-| **Add** | Add/Delete | Adding a new item. Undo removes the item. |
 
 ---
 
-## 🖱️ Dock Interaction Modes (v7.8.5)
+## 🖱️ Dock Interaction Modes
 The Athena Dock uses a dual-interaction model to balance visual editing with functional testing.
 
 ### 1. Edit Mode (Standard Click)
@@ -85,24 +77,23 @@ By default, clicking any element in the site-preview (iframe) will:
 
 ### 2. Action Mode (Shift + Click)
 To test the actual functionality of the site (links, buttons, scrolling) without leaving the editor:
-- **Hold `Shift` while clicking**: This bypasses the editor and executes the element's native behavior (e.g., following a link or triggering a scroll-to-anchor).
+- **Hold `Shift` while clicking**: This bypasses the editor and executes the element's native behavior.
 
 ---
 
-## 📐 Advanced Header & Layout Controls (v7.8.8)
+## 📐 Advanced Header & Layout Controls
 
-Since v7.8.8, Athena provides granular control over the site's primary layout and header directly from the Dock's **Design Editor**.
+Athena provides granular control over the site's primary layout and header directly from the Dock's **Design Editor**.
 
 ### 1. Global Layout Offset
 To prevent the fixed header from overlapping content (especially Hero sections), use the **Content Top Offset** slider.
 - **Variable**: `--content-top-offset`
 - **Application**: Applied as `padding-top` to the `<main>` element in `App.jsx`.
-- **Live Preview**: Updates instantly via `dock-connector.js`.
 
 ### 2. Header Visibility & Elements
 Developers can now toggle specific header components or the entire header:
 - `header_visible`: Completely hides/shows the navigation bar.
-- `header_show_logo/title/tagline/button`: Toggles individual elements within the header for a cleaner UI.
+- `header_show_logo/title/tagline/button`: Toggles individual elements within the header.
 
 ### 3. Header Styling
 - **Transparency**: Toggle `header_transparent` to switch between a blurred/colored background and a fully transparent one.
@@ -110,9 +101,9 @@ Developers can now toggle specific header components or the entire header:
 
 ---
 
-## 🔗 Editable Links & Buttons (v7.6)
+## 🔗 Editable Links & Buttons
 
-Since v7.6, Athena fully supports editable links and buttons via the `EditableLink` component. This resolves the issue of hardcoded URLs in templates.
+Athena fully supports editable links and buttons via the `EditableLink` component.
 
 ### 1. Using `EditableLink`
 The component accepts both a `label` and a `url`.
@@ -129,25 +120,27 @@ The component accepts both a `label` and a `url`.
 
 ### 2. Data Splitting (Label vs URL) - Split-Save
 To keep the primary Google Sheet (Content) clean, data is physically split during saving:
-- **Label**: Saved in the specified file (e.g., `services.json`). This is what the client sees in the main tab of the Sheet.
+- **Label**: Saved in the specified file (e.g., `services.json`).
 - **URL**: Saved in `links_config.json`. In Google Sheets, this appears on a **hidden tab** named `_links_config`.
 
 ### 3. Runtime Merging
-During startup (`main.jsx`), `links_config.json` is loaded. The engine automatically appends URLs back to data objects with the `_url` suffix. 
-*Example:* If the key is `cta`, the URL becomes available as `cta_url`.
+During startup (`main.jsx`), `links_config.json` is loaded. The engine automatically appends URLs back to data objects with the `_url` suffix.
 
 ---
 
 ## Important Development Rules
 
-### 1. Template Literals & Generator Logic
+### 1. LogManager & Logging
+Use `LogManager` for all logging needs. Avoid direct `console.log` calls in production code.
+
+### 2. Template Literals & Generator Logic
 Source code is generated in `5-engine/logic/` files. ALWAYS use `\$` for dollar signs in generated code to avoid conflicts with Node.js.
 
-### 2. BaseURL & Deployment
+### 3. BaseURL & Deployment
 ALWAYS use `import.meta.env.BASE_URL` in React components for assets and links. This ensures sites work correctly in GitHub Pages subfolders.
 
-### 3. React Router v7 Ready
-Always activate v7 future flags in `App.jsx` to prevent console warnings and prepare for the next major update:
+### 4. React Router v7 Ready
+Always activate v7 future flags in `App.jsx` to prevent console warnings:
 ```javascript
 <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
 ```
@@ -169,54 +162,36 @@ Design choices (fonts, colors, shadows) are stored in `style_bindings.json`. Use
 
 ---
 
-## Feature-Driven Architecture
-Activate specific building blocks via `features` flags in `blueprint.json`:
-- `ecommerce`: Activates cart and checkout flow.
-- `google_search_links`: Generates source references for informative sites.
+## Cloud Sync & CMS Workflow
 
-The engine automatically strips unnecessary code based on these flags during generation.
-
----
-
-## Cloud Sync & CMS Workflow (v7.8.9)
-
-Athena uses Google Sheets as a Headless CMS. Synchronization is bidirectional and managed via the **Google Sheet Manager** in the Factory Dashboard:
+Athena uses Google Sheets as a Headless CMS. Synchronization is bidirectional and managed via the **Google Sheet Manager** (powered by `AthenaDataManager`) in the Factory Dashboard:
 
 ### 📤 Push Sync (Local -> Cloud)
-Managed by `sync-full-project-to-sheet.js`.
+Managed by `sync-full-project-to-sheet.js` via `AthenaDataManager`.
 - **Action**: Visual changes in Athena Dock are saved locally and then pushed to the cloud.
 - **Intelligence**: Automatically creates missing tabs in Google Sheets based on local JSON files.
-- **Migration**: Automatically handles the split between human-readable tabs and technical hidden tabs (`_style_config`).
-- **Provisioning**: If no sheet is linked, it automatically triggers `auto-sheet-provisioner.js` (with Service Account fallback).
+- **Provisioning**: If no sheet is linked, it automatically triggers provisioning.
 
 ### 📥 Pull Sync (Cloud -> Local)
-Managed by `sync-sheet-to-json.js`.
+Managed by `sync-sheet-to-json.js` via `AthenaDataManager`.
 - **Action**: Fetches raw data from Google Sheets and overwrites `src/data/`.
 - **Safety**: Automatically creates a timestamped backup in `sites/[project]/backups/` before overwriting.
-- **Requirement**: The Google Sheet MUST be "Published to the web" (as TSV) for GitHub Actions to access the data.
 
 ### 🔍 Media Auditor
 To safely manage project images without breaking the site, use the **Media Auditor**:
 `node factory/6-utilities/audit-media.js <project-name>`
-- **Detection**: Identifies broken image links (in JSON but missing from disk) and unused files (on disk but missing from JSON).
 
 ## 📝 Git Workflow SOP
 1.  **Sync**: `git pull origin main` for factory and dock.
 2.  **Develop**: Make changes in boilerplates or engine.
-3.  **Test**: Generate a test site (e.g., `athena-pro`).
+3.  **Test**: Generate a test site.
 4.  **Audit**: Run `audit-media.js` before deleting any assets.
 5.  **Commit**: Prefix messages with `feat:`, `fix:`, or `docs:`. 
 6.  **Push**: Check remotes with `git remote -v` before pushing.
 
 ---
 
-## 🛠️ Troubleshooting & Problem Solving
-For common issues and technical hurdles, consult the specialized documentation:
-- [Google Apps Script Authorization Issues](./problemsolving/google-apps-script-auth.md) - How to resolve persistent auth errors in Google Sheets.
-
----
-
-## 🏛️ Governance & Data Architecture (v7.5+)
+## 🏛️ Governance & Data Architecture
 
 Since v7.5, Athena has employed a strict management model ("Governance") to ensure customer data integrity and keep the Google Sheets interface clean.
 
@@ -227,7 +202,7 @@ Each site has a `governance_mode` in `athena-config.json`:
     *   Full bidirectional sync (Push & Pull).
     *   Developer has complete control over both content and layout.
 *   **`client-mode` (Production)**:
-    *   **Push Lock**: The "Push to Google Sheets" button in the Dock is locked (padlock icon). This prevents local changes in the Dock from overwriting client-managed text in the Sheet.
+    *   **Push Lock**: The "Push to Google Sheets" button in the Dock is locked (padlock icon).
     *   **Sheet-First Content**: The client manages all text via Google Sheets. The developer manages the style.
 
 ### 2. Clean Sheet Architecture (Style/Content Separation)
@@ -240,7 +215,4 @@ To prevent clients from seeing "JSON code" in their Google Sheet, data and form 
     *   `site_settings.json`: Content only.
     *   `style_config.json`: Design settings.
 *   **Runtime Merge**:
-    During site startup (`main.jsx`), these two sources are merged back in memory. The React application sees a single `site_settings` object for both text and style.
-
-### 3. The "Soft Rebase" Pull
-When a `Pull from Sheets` is executed, the engine (`sync-sheet-to-json.js`) recognizes if the site is in `client-mode`. It buffers local style changes (if any) and reapplies them on top of the fresh content from the Sheet, ensuring design updates in the Dock are not lost during client content updates.
+    During site startup (`main.jsx`), these two sources are merged back in memory.
