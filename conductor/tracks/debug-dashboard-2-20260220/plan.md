@@ -1,10 +1,10 @@
 # Implementation Plan: Debug Dashboard Sites Layout & Navigation
 
 ## Phase 1: Research & Discovery (Locate Components & logic)
-- [ ] Task: Locate the `Sites` tab rendering logic in `factory/dashboard/athena.js`
-- [ ] Task: Identify the CSS/Tailwind classes currently causing the site cards to stretch across the screen
-- [ ] Task: Determine how the 'Live' tag is rendered and where the link URL is derived from
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Research & Discovery' (Protocol in workflow.md)
+- [x] Task: Locate the `Sites` tab rendering logic in `factory/dashboard/athena.js`
+- [x] Task: Identify the CSS/Tailwind classes currently causing the site cards to stretch across the screen
+- [x] Task: Determine how the 'Live' tag is rendered and where the link URL is derived from
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Research & Discovery' (Protocol in workflow.md)
 
 ## Phase 2: Implement Responsive Grid Layout
 - [ ] Task: Create a failing test for the layout logic (if applicable via DOM/Snapshots)
