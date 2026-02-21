@@ -2122,6 +2122,7 @@ async function loadLiveManager() {
     
     try {
         const deployments = await fetchJSON('/sites/all-deployments') || [];
+        console.log("🌐 Received deployments from API:", deployments);
         list.innerHTML = '';
         
         if (deployments.length === 0) {
@@ -2134,6 +2135,11 @@ async function loadLiveManager() {
             row.style.borderBottom = '1px solid var(--border)';
             row.className = 'hover-row';
             
+            const liveStyle = site.liveUrlFallback ? 'font-style: italic; color: var(--muted); opacity: 0.7;' : '';
+            const repoStyle = site.repoUrlFallback ? 'font-style: italic; color: var(--muted); opacity: 0.7;' : '';
+            const liveTitle = site.liveUrlFallback ? 'Dit is een automatisch gegenereerde fallback URL (niet opgeslagen in bestand).' : 'Deze URL is opgeslagen in de configuratie.';
+            const repoTitle = site.repoUrlFallback ? 'Dit is een automatisch gegenereerde fallback URL (niet opgeslagen in bestand).' : 'Deze URL is opgeslagen in de configuratie.';
+
             row.innerHTML = `
                 <td style="padding: 10px; font-weight: bold;">${site.id}</td>
                 <td style="padding: 10px;">
@@ -2143,17 +2149,17 @@ async function loadLiveManager() {
                         <option value="archived" ${site.status === 'archived' ? 'selected' : ''}>Archived</option>
                     </select>
                 </td>
-                <td style="padding: 10px;">
-                    <input type="text" id="live-${site.id}" value="${site.liveUrl || ''}" placeholder="https://..." class="inline-input" style="width: 100%;">
+                <td style="padding: 10px; position: relative;">
+                    <input type="text" id="live-${site.id}" value="${site.liveUrl || ''}" placeholder="https://..." class="inline-input" style="width: 100%; ${liveStyle}" title="${liveTitle}">
+                </td>
+                <td style="padding: 10px; position: relative;">
+                    <input type="text" id="repo-${site.id}" value="${site.repoUrl || ''}" placeholder="https://github.com/..." class="inline-input" style="width: 100%; ${repoStyle}" title="${repoTitle}">
                 </td>
                 <td style="padding: 10px;">
-                    <input type="text" id="repo-${site.id}" value="${site.repoUrl || ''}" placeholder="https://github.com/..." class="inline-input" style="width: 100%;">
-                </td>
-                <td style="padding: 10px;">
-                    <button onclick="updateDeploymentInline('${site.id}')" class="primary-btn" style="padding: 5px 10px; font-size: 0.7rem; background: var(--success);">
+                    <button onclick="updateDeploymentInline('${site.id}')" class="primary-btn" style="padding: 5px 10px; font-size: 0.7rem; background: var(--success);" title="Sla de wijzigingen voor dit project op in de lokale configuratie.">
                         <i class="fa-solid fa-save"></i>
                     </button>
-                    ${site.liveUrl ? `<a href="${site.liveUrl}" target="_blank" class="action-btn" style="display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px;"><i class="fa-solid fa-external-link"></i></a>` : ''}
+                    ${site.liveUrl ? `<a href="${site.liveUrl}" target="_blank" class="action-btn" style="display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px;" title="Open de live website in een nieuw tabblad."><i class="fa-solid fa-external-link"></i></a>` : ''}
                 </td>
             `;
             list.appendChild(row);

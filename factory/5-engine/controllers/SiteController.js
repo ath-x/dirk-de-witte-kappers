@@ -307,10 +307,30 @@ export class SiteController {
         return projects.map(project => {
             const deployFile = path.join(this.sitesDir, project, 'project-settings', 'deployment.json');
             let deployData = { liveUrl: '', repoUrl: '', status: 'local' };
+            let flags = { liveUrlFallback: false, repoUrlFallback: false };
+            
             if (fs.existsSync(deployFile)) {
-                try { deployData = JSON.parse(fs.readFileSync(deployFile, 'utf8')); } catch (e) {}
+                try { 
+                    deployData = JSON.parse(fs.readFileSync(deployFile, 'utf8')); 
+                    
+                    if (deployData.status === 'live' || !deployData.status) {
+                        const githubUser = process.env.GITHUB_USER || this.configManager.get('GITHUB_USER');
+                        const githubOrg = process.env.GITHUB_ORG || this.configManager.get('GITHUB_ORG');
+                        const owner = githubOrg || githubUser || 'athena-cms-factory';
+                        
+                        if (!deployData.liveUrl) {
+                            deployData.liveUrl = `https://${owner}.github.io/${project}/`;
+                            flags.liveUrlFallback = true;
+                        }
+                        if (!deployData.repoUrl) {
+                            deployData.repoUrl = `https://github.com/${owner}/${project}`;
+                            flags.repoUrlFallback = true;
+                        }
+                        if (!deployData.status) deployData.status = 'live';
+                    }
+                } catch (e) {}
             }
-            return { id: project, ...deployData };
+            return { id: project, ...deployData, ...flags };
         });
     }
 

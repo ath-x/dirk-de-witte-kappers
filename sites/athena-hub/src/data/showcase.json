@@ -3,7 +3,10 @@
     "name": "De Salon",
     "category": "Beauty & Wellness",
     "description": "Een moderne website voor kapsalons met focus op sfeer en team-presentatie.",
-    "link": "https://athena-cms-factory.github.io/de-salon-site/",
+    "link": {
+      "label": "BEKIJK PROJECT",
+      "url": "https://athena-cms-factory.github.io/de-salon-site"
+    },
     "image": "salon_hero.png"
   },
   {

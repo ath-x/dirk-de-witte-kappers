@@ -1407,3 +1407,18 @@ select:focus {
 .hover-row:hover {
     background: rgba(255, 255, 255, 0.03);
 }
+
+/* TABLES & CONTAINERS */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.w-full {
+    width: 100%;
+}
+
+#live-manager {
+    max-width: 100% !important;
+}
+

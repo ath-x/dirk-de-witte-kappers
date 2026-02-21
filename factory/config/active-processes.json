@@ -1,9 +1,9 @@
 {
   "5002": {
-    "pid": 6642,
+    "pid": 14127,
     "id": "athena-dock",
     "type": "dock",
-    "startTime": "2026-02-21T14:17:44.747Z",
+    "startTime": "2026-02-21T14:47:48.945Z",
     "logFile": "/home/kareltestspecial/ath/athena-x/factory/output/logs/athena-dock-dock.log"
   },
   "5982": {

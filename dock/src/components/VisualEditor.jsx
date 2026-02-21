@@ -246,7 +246,7 @@ const VisualEditor = ({ item, selectedSite, onSave, onCancel, onUpload }) => {
                       <option value="">-- Select a live project --</option>
                       {allSites.map(site => (
                         <option key={site.id} value={site.liveUrl}>
-                          {site.name} ({site.id})
+                          {site.liveUrl} ({site.name})
                         </option>
                       ))}
                     </select>

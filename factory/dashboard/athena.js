@@ -183,6 +183,7 @@ app.post('/api/projects/remote-delete', async (req, res) => {
 });
 
 // --- SITE API ---
+app.get('/api/sites/all-deployments', (req, res) => res.json(siteCtrl.getAllDeployments()));
 app.get('/api/sites', (req, res) => res.json(siteCtrl.list()));
 app.get('/api/styles', (req, res) => res.json(siteCtrl.getStyles()));
 app.get('/api/layouts/:track/:type', (req, res) => res.json(siteCtrl.getLayouts(`${req.params.track}/${req.params.type}`)));
@@ -193,7 +194,7 @@ app.post('/api/sites/:id/update-data', (req, res) => res.json(siteCtrl.updateDat
 app.get('/api/sites/:name/status', (req, res) => res.json(siteCtrl.getStatus(req.params.name)));
 app.post('/api/sites/:name/install', (req, res) => res.json(siteCtrl.install(req.params.name)));
 app.post('/api/sites/:id/preview', async (req, res) => res.json(await siteCtrl.preview(req.params.id)));
-app.get('/api/sites/all-deployments', async (req, res) => res.json(await siteCtrl.getAllDeployments()));
+app.get('/api/sites/all-deployments', (req, res) => res.json(siteCtrl.getAllDeployments()));
 app.post('/api/sites/update-deployment', (req, res) => res.json(siteCtrl.updateDeployment(req.body)));
 app.post('/api/sites/:id/pull-from-sheet', async (req, res) => res.json(await siteCtrl.pullFromSheet(req.params.id)));
 app.post('/api/sites/:id/sync-to-sheet', async (req, res) => res.json(await siteCtrl.syncToSheet(req.params.id)));

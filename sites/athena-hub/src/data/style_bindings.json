@@ -47,5 +47,13 @@
     "textAlign": "left",
     "fontFamily": "sans-serif",
     "textShadow": false
+  },
+  "showcase:0:link": {
+    "bold": false,
+    "italic": false,
+    "fontSize": "16px",
+    "textAlign": "left",
+    "fontFamily": "sans-serif",
+    "textShadow": false
   }
 }
