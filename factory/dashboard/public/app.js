@@ -1795,7 +1795,7 @@ function openDockForSite(name, event) {
 function goToDeployForSite(name, event) {
     if (event) { event.preventDefault(); event.stopPropagation(); }
     showSection('deploy', document.querySelector('button[onclick*="deploy"]'));
-    // Optioneel: vul de site-naam in als dat veld bestaat
+    loadDeployForm(name);
 }
 
 // --- VIEW: VARIANT GENERATOR ---
@@ -2083,12 +2083,17 @@ document.getElementById('create-sync-btn').onclick = async () => {
 };
 
 // --- VIEW: DEPLOY ---
-async function loadDeployForm() {
+async function loadDeployForm(preselectedSite = null) {
     const sites = await fetchJSON('/sites') || [];
-    document.getElementById('deploy-project-select').innerHTML = sites.map(s => {
+    const select = document.getElementById('deploy-project-select');
+    select.innerHTML = sites.map(s => {
         const name = s.name || (typeof s === 'string' ? s : 'Onbekend');
-        return `<option value="${name}">${name}</option>`;
+        return `<option value="${name}" ${preselectedSite === name ? 'selected' : ''}>${name}</option>`;
     }).join('');
+    
+    if (preselectedSite) {
+        select.value = preselectedSite;
+    }
 }
 
 document.getElementById('deploy-form').onsubmit = async (e) => {
