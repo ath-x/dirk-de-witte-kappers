@@ -1388,3 +1388,22 @@ select:focus {
 .bg-darker { background-color: var(--bg-darker); }
 .transition-all { transition: all 0.3s ease; }
 .mr-5 { margin-right: 5px; }
+
+.inline-input {
+    background: var(--bg-dark);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.inline-input:focus {
+    border-color: var(--accent);
+}
+
+.hover-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+}

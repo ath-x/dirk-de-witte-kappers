@@ -21,6 +21,13 @@ import { generateWithAI } from './ai-engine.js';
 
 let activeProject = null;
 
+// --- CLI OVERRIDE ---
+const args = process.argv.slice(2);
+if (args[0]) {
+    activeProject = args[0];
+    console.log(`🎯 Initial site set from CLI: ${activeProject}`);
+}
+
 const app = express();
 const port = process.env.MEDIA_MAPPER_PORT || 4004;
 

@@ -41,14 +41,28 @@ export class ProjectController {
     }
 
     /**
-     * Get files within a project's input directory
+     * Get files within a project's input and tsv-data directories
      */
     getFiles(id) {
-        const dir = path.join(this.inputDir, id, 'input');
-        if (!fs.existsSync(dir)) return [];
-        return fs.readdirSync(dir).filter(f => 
-            fs.statSync(path.join(dir, f)).isFile() && !f.startsWith('.')
-        );
+        const inputDir = path.join(this.inputDir, id, 'input');
+        const tsvDir = path.join(this.inputDir, id, 'tsv-data');
+        let files = [];
+
+        if (fs.existsSync(inputDir)) {
+            const inputFiles = fs.readdirSync(inputDir).filter(f => 
+                fs.statSync(path.join(inputDir, f)).isFile() && !f.startsWith('.')
+            );
+            files = [...files, ...inputFiles];
+        }
+
+        if (fs.existsSync(tsvDir)) {
+            const tsvFiles = fs.readdirSync(tsvDir).filter(f => 
+                fs.statSync(path.join(tsvDir, f)).isFile() && !f.startsWith('.')
+            );
+            files = [...files, ...tsvFiles];
+        }
+
+        return files;
     }
 
     /**
@@ -117,6 +131,27 @@ export class ProjectController {
      */
     createFromSite(sourceSiteName, targetProjectName) {
         return this.execService.runEngineScript('site-to-datasource-generator.js', [sourceSiteName, targetProjectName]);
+    }
+
+    /**
+     * Rename a project and its associated site
+     */
+    async rename(oldName, newName) {
+        return this.execService.runEngineScript('rename-site-wizard.js', [oldName, newName]);
+    }
+
+    /**
+     * Sync JSON data back to TSV format
+     */
+    async reverseSync(id) {
+        return this.execService.runEngineScript('sync-json-to-tsv.js', [id]);
+    }
+
+    /**
+     * Upload TSV data to a linked Google Sheet
+     */
+    async uploadData(id) {
+        return this.execService.runEngineScript('sync-tsv-to-sheets.js', [id]);
     }
 
     /**

@@ -29,6 +29,16 @@ const VisualEditor = ({ item, selectedSite, onSave, onCancel, onUpload }) => {
 
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [allSites, setAllSites] = useState([]);
+
+  useEffect(() => {
+    if (isLink) {
+        fetch('./sites.json')
+            .then(res => res.json())
+            .then(data => setAllSites(data.filter(s => s.liveUrl)))
+            .catch(err => console.warn("Failed to load sites registry:", err));
+    }
+  }, [isLink]);
 
   const sendPreview = (val, format) => {
     const iframe = document.querySelector('iframe');
@@ -221,6 +231,27 @@ const VisualEditor = ({ item, selectedSite, onSave, onCancel, onUpload }) => {
                     placeholder="https://... or /contact"
                   />
                </div>
+
+               {allSites.length > 0 && (
+                 <div>
+                    <label className="text-[10px] uppercase font-bold text-slate-400 mb-2 block">Quick Link (Live Sites)</label>
+                    <select 
+                      onChange={(e) => {
+                        const url = e.target.value;
+                        if (url) setLinkData(prev => ({ ...prev, url }));
+                      }}
+                      value={allSites.some(s => s.liveUrl === linkData.url) ? linkData.url : ""}
+                      className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    >
+                      <option value="">-- Select a live project --</option>
+                      {allSites.map(site => (
+                        <option key={site.id} value={site.liveUrl}>
+                          {site.name} ({site.id})
+                        </option>
+                      ))}
+                    </select>
+                 </div>
+               )}
              </div>
           ) : (
              <div className="space-y-4">

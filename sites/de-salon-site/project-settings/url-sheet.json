@@ -54,5 +54,13 @@
   "testimonials": {
     "editUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/edit#gid=794335546",
     "exportUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/export?format=tsv&gid=794335546"
+  },
+  "_style_config": {
+    "editUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/edit#gid=642420182",
+    "exportUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/export?format=tsv&gid=642420182"
+  },
+  "_links_config": {
+    "editUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/edit#gid=919590133",
+    "exportUrl": "https://docs.google.com/spreadsheets/d/1HrOUhMWGmY2A_eqsyMmBid1ChWNxtVA9TBwFPVNLxPk/export?format=tsv&gid=919590133"
   }
 }

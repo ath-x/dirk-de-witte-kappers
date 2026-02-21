@@ -162,6 +162,11 @@ app.post('/api/projects/:id/upload', upload.array('files'), (req, res) => res.js
 app.post('/api/projects/:id/add-text', (req, res) => res.json(projectCtrl.addText(req.params.id, req.body.text, req.body.filename)));
 app.post('/api/projects/:id/save-urls', (req, res) => res.json(projectCtrl.saveUrls(req.params.id, req.body.urls)));
 app.post('/api/projects/:id/delete', async (req, res) => res.json(await projectCtrl.deleteProject(req.params.id, req.body)));
+app.post('/api/projects/:id/rename', async (req, res) => res.json(await projectCtrl.rename(req.params.id, req.body.newName)));
+app.post('/api/projects/:id/link-sheet', async (req, res) => res.json(await siteCtrl.linkSheet(req.params.id, req.body.sheetUrl)));
+app.post('/api/projects/:id/auto-provision', async (req, res) => res.json(await siteCtrl.autoProvision(req.params.id)));
+app.post('/api/projects/:id/reverse-sync', async (req, res) => res.json(await projectCtrl.reverseSync(req.params.id)));
+app.post('/api/projects/:id/upload-data', async (req, res) => res.json(await projectCtrl.uploadData(req.params.id)));
 app.get('/api/remote-repos', async (req, res) => {
     try {
         res.json(await githubCtrl.listRepositories());
@@ -188,6 +193,10 @@ app.post('/api/sites/:id/update-data', (req, res) => res.json(siteCtrl.updateDat
 app.get('/api/sites/:name/status', (req, res) => res.json(siteCtrl.getStatus(req.params.name)));
 app.post('/api/sites/:name/install', (req, res) => res.json(siteCtrl.install(req.params.name)));
 app.post('/api/sites/:id/preview', async (req, res) => res.json(await siteCtrl.preview(req.params.id)));
+app.get('/api/sites/all-deployments', async (req, res) => res.json(await siteCtrl.getAllDeployments()));
+app.post('/api/sites/update-deployment', (req, res) => res.json(siteCtrl.updateDeployment(req.body)));
+app.post('/api/sites/:id/pull-from-sheet', async (req, res) => res.json(await siteCtrl.pullFromSheet(req.params.id)));
+app.post('/api/sites/:id/sync-to-sheet', async (req, res) => res.json(await siteCtrl.syncToSheet(req.params.id)));
 
 // --- TOOL API ---
 app.post('/api/onboard', async (req, res) => res.json(toolCtrl.onboard(req.body.companyName, req.body.websiteUrl, req.body.clientEmail)));
@@ -195,13 +204,33 @@ app.post('/api/projects/:id/scrape', async (req, res) => res.json(toolCtrl.scrap
 app.post('/api/sites/:id/generate-variants', async (req, res) => res.json(toolCtrl.generateVariants(req.params.id, req.body.styles)));
 app.post('/api/run-script', async (req, res) => res.json(await toolCtrl.runScript(req.body.script, req.body.args)));
 
+app.post('/api/set-site', async (req, res) => {
+    // Forward to Media Visualizer if it's running
+    const port = configManager.get('ports.media') || 5004;
+    try {
+        const response = await fetch(`http://localhost:${port}/api/set-site`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(req.body)
+        });
+        const data = await response.json();
+        res.json(data);
+    } catch (e) {
+        // Fallback: just return success if media server is not up
+        res.json({ success: true, note: "Media server not reachable, but request accepted." });
+    }
+});
+
+app.post('/api/sync-to-sheets/:id', async (req, res) => res.json(await siteCtrl.syncToSheet(req.params.id)));
+app.post('/api/pull-from-sheets/:id', async (req, res) => res.json(await siteCtrl.pullFromSheet(req.params.id)));
+
 // --- SERVER API ---
 app.get('/api/servers/check/:port', (req, res) => res.json(serverCtrl.checkStatus(req.params.port)));
 app.post('/api/servers/stop/:type', async (req, res) => res.json(await serverCtrl.stopByType(req.params.type)));
 app.get('/api/servers/active', (req, res) => res.json({ servers: serverCtrl.getActive() }));
 app.post('/api/servers/kill/:port', async (req, res) => res.json(await serverCtrl.kill(req.params.port)));
 app.post('/api/start-layout-server', async (req, res) => res.json(await serverCtrl.startLayoutEditor()));
-app.post('/api/start-media-server', async (req, res) => res.json(await serverCtrl.startMediaVisualizer()));
+app.post('/api/start-media-server', async (req, res) => res.json(await serverCtrl.startMediaVisualizer(req.body.siteName)));
 app.post('/api/start-dock', async (req, res) => res.json(await serverCtrl.startDock()));
 
 // --- SITETYPE API ---

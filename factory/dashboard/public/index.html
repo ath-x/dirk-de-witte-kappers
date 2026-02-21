@@ -47,6 +47,9 @@
                 <button class="nav-btn" onclick="showSection('deploy', this)">
                     <i class="fa-solid fa-cloud-arrow-up"></i> Deployment
                 </button>
+                <button class="nav-btn" onclick="showSection('live-manager', this)">
+                    <i class="fa-solid fa-earth-europe"></i> Live Manager
+                </button>
 
                 <div class="nav-separator"></div>
 
@@ -413,6 +416,36 @@
                         </button>
                     </form>
                     <div id="deploy-log" class="log-output"></div>
+                </div>
+            </section>
+
+            <!-- SECTION: LIVE MANAGER -->
+            <section id="live-manager" class="view-section hidden">
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-earth-europe accent"></i> Live Site & URL Manager</h3>
+                    <div class="flex-row" style="gap: 10px;">
+                        <button onclick="syncLiveRegistry()" class="primary-btn" style="padding: 8px 15px; font-size: 0.8rem; background: var(--purple);">
+                            <i class="fa-solid fa-arrows-rotate"></i> Sync Registry
+                        </button>
+                    </div>
+                </div>
+                <p class="muted mb-20">Beheer hier de live URLs en GitHub repositories van alle projecten.</p>
+                
+                <div class="table-container bg-darker p-20 rounded-10 border">
+                    <table class="w-full text-left" style="border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-transform: uppercase;">
+                                <th style="padding: 10px;">Project ID</th>
+                                <th style="padding: 10px;">Status</th>
+                                <th style="padding: 10px;">Live URL (GitHub Pages)</th>
+                                <th style="padding: 10px;">Repo URL</th>
+                                <th style="padding: 10px;">Actie</th>
+                            </tr>
+                        </thead>
+                        <tbody id="live-manager-list">
+                            <!-- Ingevuld door JS -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
 

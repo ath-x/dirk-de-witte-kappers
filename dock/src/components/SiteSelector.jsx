@@ -65,7 +65,20 @@ const SiteSelector = ({ selectedSite, onSelectSite }) => {
         setSites(normalized);
 
         // Selectie logica
-        if (!selectedSite) {
+        const params = new URLSearchParams(window.location.search);
+        const siteParam = params.get('site');
+
+        if (siteParam) {
+          const found = normalized.find(s => s.id === siteParam || s.name === siteParam);
+          if (found) {
+            console.debug("🎯 Selecting site from URL parameter:", found.name);
+            onSelectSite(found);
+          } else if (firstActive) {
+            onSelectSite(firstActive);
+          } else if (normalized.length > 0) {
+            onSelectSite(normalized[0]);
+          }
+        } else if (!selectedSite) {
           if (firstActive) {
             console.debug("🎯 Auto-selecting active site:", firstActive.name, "at", firstActive.url);
             onSelectSite(firstActive);

@@ -296,6 +296,25 @@ export class SiteController {
     }
 
     /**
+     * Get all deployments for the Live Manager GUI
+     */
+    getAllDeployments() {
+        if (!fs.existsSync(this.sitesDir)) return [];
+        const projects = fs.readdirSync(this.sitesDir).filter(f => 
+            fs.statSync(path.join(this.sitesDir, f)).isDirectory() && !f.startsWith('.')
+        );
+
+        return projects.map(project => {
+            const deployFile = path.join(this.sitesDir, project, 'project-settings', 'deployment.json');
+            let deployData = { liveUrl: '', repoUrl: '', status: 'local' };
+            if (fs.existsSync(deployFile)) {
+                try { deployData = JSON.parse(fs.readFileSync(deployFile, 'utf8')); } catch (e) {}
+            }
+            return { id: project, ...deployData };
+        });
+    }
+
+    /**
      * Link a Google Sheet to a site
      */
     async linkSheet(id, sheetUrl) {

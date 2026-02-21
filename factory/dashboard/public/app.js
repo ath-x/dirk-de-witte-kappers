@@ -151,6 +151,7 @@ function showSection(id, btn) {
     if (id === 'repositories') loadRepositories();
     if (id === 'create') loadCreateForm();
     if (id === 'deploy') loadDeployForm();
+    if (id === 'live-manager') loadLiveManager();
     if (id === 'todo') loadTodo();
     if (id === 'settings') loadSettings();
     if (id === 'sitetypes') loadSiteTypes();
@@ -2113,6 +2114,97 @@ document.getElementById('deploy-form').onsubmit = async (e) => {
     } catch (err) { log.innerText = `❌ Fout: ${err.message}`; }
     btn.disabled = false; btn.innerText = "☁️ Start Workflow";
 };
+
+// --- VIEW: LIVE MANAGER ---
+async function loadLiveManager() {
+    const list = document.getElementById('live-manager-list');
+    list.innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center;">📡 Gegevens ophalen uit sites...</td></tr>';
+    
+    try {
+        const deployments = await fetchJSON('/sites/all-deployments') || [];
+        list.innerHTML = '';
+        
+        if (deployments.length === 0) {
+            list.innerHTML = '<tr><td colspan="5" style="padding: 20px; text-align: center;">Geen projecten gevonden.</td></tr>';
+            return;
+        }
+        
+        deployments.forEach(site => {
+            const row = document.createElement('tr');
+            row.style.borderBottom = '1px solid var(--border)';
+            row.className = 'hover-row';
+            
+            row.innerHTML = `
+                <td style="padding: 10px; font-weight: bold;">${site.id}</td>
+                <td style="padding: 10px;">
+                    <select id="status-${site.id}" class="inline-input" style="width: 80px;">
+                        <option value="local" ${site.status === 'local' ? 'selected' : ''}>Local</option>
+                        <option value="live" ${site.status === 'live' ? 'selected' : ''}>Live</option>
+                        <option value="archived" ${site.status === 'archived' ? 'selected' : ''}>Archived</option>
+                    </select>
+                </td>
+                <td style="padding: 10px;">
+                    <input type="text" id="live-${site.id}" value="${site.liveUrl || ''}" placeholder="https://..." class="inline-input" style="width: 100%;">
+                </td>
+                <td style="padding: 10px;">
+                    <input type="text" id="repo-${site.id}" value="${site.repoUrl || ''}" placeholder="https://github.com/..." class="inline-input" style="width: 100%;">
+                </td>
+                <td style="padding: 10px;">
+                    <button onclick="updateDeploymentInline('${site.id}')" class="primary-btn" style="padding: 5px 10px; font-size: 0.7rem; background: var(--success);">
+                        <i class="fa-solid fa-save"></i>
+                    </button>
+                    ${site.liveUrl ? `<a href="${site.liveUrl}" target="_blank" class="action-btn" style="display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px;"><i class="fa-solid fa-external-link"></i></a>` : ''}
+                </td>
+            `;
+            list.appendChild(row);
+        });
+    } catch (err) {
+        list.innerHTML = `<tr><td colspan="5" style="padding: 20px; text-align: center; color: var(--error);">Fout: ${err.message}</td></tr>`;
+    }
+}
+
+async function updateDeploymentInline(id) {
+    const data = {
+        projectName: id,
+        status: document.getElementById(`status-${id}`).value,
+        liveUrl: document.getElementById(`live-${id}`).value,
+        repoUrl: document.getElementById(`repo-${id}`).value
+    };
+    
+    try {
+        const res = await fetch(`${API}/sites/update-deployment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.success) {
+            // Toast of kleine feedback
+            console.log(`✅ Deployment updated for ${id}`);
+            loadLiveManager();
+        } else {
+            alert("Fout: " + result.error);
+        }
+    } catch (err) {
+        alert("Netwerkfout: " + err.message);
+    }
+}
+
+async function syncLiveRegistry() {
+    if (!confirm("Dit scant alle projectmappen en werkt de centrale registry bij. Doorgaan?")) return;
+    try {
+        const res = await fetch(`${API}/run-script`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ script: 'sync-sites-registry.js', args: [] })
+        });
+        const result = await res.json();
+        alert(result.message || "Registry gesynchroniseerd.");
+        loadLiveManager();
+    } catch (err) {
+        alert("Fout bij sync: " + err.message);
+    }
+}
 
 // --- VIEW: SITE SETTINGS ---
 let currentEditingSite = null;
