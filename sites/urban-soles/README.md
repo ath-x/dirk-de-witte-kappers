@@ -1,3 +1,6 @@
-https://athena-cms-factory.github.io/urban-soles 
-## Organization Sync
-Synced to athena-cms-factory on Sun Feb  8 09:54:10 AM CET 2026
+# urban-soles
+
+🚀 **Live Site:** [https://athena-cms-factory.github.io/urban-soles/](https://athena-cms-factory.github.io/urban-soles/)
+
+---
+Built with **Athena CMS Factory** (MPA Engine).

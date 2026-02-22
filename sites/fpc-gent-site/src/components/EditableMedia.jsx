@@ -11,12 +11,12 @@ export default function EditableMedia({ src: rawSrc, alt, className, cmsBind, da
 
   // Path resolution
   const baseUrl = import.meta.env.BASE_URL || '/';
-  const src = (rawSrc && rawSrc !== "" && !rawSrc.startsWith('http') && !rawSrc.startsWith('/') && !rawSrc.startsWith('data:'))
+  const src = (rawSrc && rawSrc !== "" && !rawSrc.startsWith('http://') && !rawSrc.startsWith('https://') && !rawSrc.startsWith('/') && !rawSrc.startsWith('data:'))
     ? `${baseUrl}images/${rawSrc}`.replace(/\/+/g, '/')
     : (rawSrc || null);
 
   const isVideo = src && (src.endsWith('.mp4') || src.endsWith('.webm') || src.includes('video'));
-  
+
   // Loop setting from data (default is true)
   const loopKey = `${cmsBind?.key}_loop`;
   const isLooping = dataItem[loopKey] !== false && dataItem[loopKey] !== "false";
@@ -24,7 +24,7 @@ export default function EditableMedia({ src: rawSrc, alt, className, cmsBind, da
   const renderContent = () => {
     if (src && !hasError) {
       if (isVideo) {
-          return <video src={src} autoPlay loop={isLooping} muted playsInline className="w-full h-full object-cover" onError={() => setHasError(true)} />;
+        return <video src={src} autoPlay loop={isLooping} muted playsInline className="w-full h-full object-cover" onError={() => setHasError(true)} />;
       }
       return <img src={src} alt={alt} className="w-full h-full object-cover" onError={() => setHasError(true)} {...props} />;
     }
@@ -44,14 +44,14 @@ export default function EditableMedia({ src: rawSrc, alt, className, cmsBind, da
 
   // In Dev mode, we return a wrapper that the Dock can identify
   return (
-    <div 
+    <div
       className={`relative group overflow-hidden cursor-pointer ${className}`}
       data-dock-bind={JSON.stringify(cmsBind)} data-dock-type="media"
       data-dock-current={rawSrc || ""}
       {...props}
     >
       {renderContent()}
-      
+
       {/* NO in-site tools for docked track - Dock handles this via Drag & Drop */}
       <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/10 transition-colors pointer-events-none border-4 border-transparent group-hover:border-blue-500/30 rounded-inherit"></div>
     </div>

@@ -87,14 +87,14 @@ app.post('/__athena/update-json', async (req, res) => {
         const raw = fs.readFileSync(dataPath, 'utf8');
         let data = JSON.parse(raw);
         const isArray = Array.isArray(data);
-        
+
         // Update de waarde (index kan ook 'all' of specifiek nummer zijn)
         if (isArray) {
             if (data[index]) {
                 data[index][key] = value;
             } else {
                 // Fallback: zoek op absoluteIndex of id als die er zijn
-                data[0][key] = value; 
+                data[0][key] = value;
             }
         } else {
             data[key] = value;
@@ -165,21 +165,70 @@ app.get('/api/data', (req, res) => {
         images = fs.readdirSync(imagesDir).filter(f => /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(f));
     }
 
-    // 2. Haal data op
+    // Helper recursive function to find all JSON files
+    function getAllJsonFiles(dir, fileList = []) {
+        if (!fs.existsSync(dir)) return fileList;
+        const files = fs.readdirSync(dir);
+        for (const file of files) {
+            const stat = fs.statSync(path.join(dir, file));
+            if (stat.isDirectory()) {
+                getAllJsonFiles(path.join(dir, file), fileList);
+            } else if (file.endsWith('.json') && file !== 'schema.json') {
+                fileList.push(path.join(dir, file));
+            }
+        }
+        return fileList;
+    }
+
+    // 2. Haal data op (MPA-compatible via recursief zoeken)
     let tables = {};
     if (fs.existsSync(dataDir)) {
-        const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.json') && f !== 'schema.json');
-        files.forEach(file => {
+        const jsonFiles = getAllJsonFiles(dataDir);
+        for (const filePath of jsonFiles) {
             try {
-                const raw = fs.readFileSync(path.join(dataDir, file), 'utf8');
-                let content = JSON.parse(raw);
-                if (!Array.isArray(content)) content = [content];
-                
-                // Filter alleen relevante velden (images)
-                // We sturen de hele rij, maar markeren image-velden in frontend
-                tables[file.replace('.json', '')] = content;
-            } catch (e) {}
-        });
+                // Table name becomes relative path from src/data without .json 
+                // bijv: pages/home, over-ons, etc.
+                const relativePath = path.relative(dataDir, filePath);
+                const tableName = relativePath.replace(/\\/g, '/').replace('.json', '');
+
+                const raw = fs.readFileSync(filePath, 'utf8');
+                let parsed = JSON.parse(raw);
+
+                // Detect MPA Page Structure vs Flat Array
+                if (parsed.content && Array.isArray(parsed.content.sections)) {
+                    // This is an MPA JSON (e.g. pages/home.json)
+                    parsed.content.sections.forEach((sec, idx) => {
+                        const secType = sec.type || 'section';
+                        const secData = sec.content || {};
+                        let rows = secData.items ? secData.items : [secData];
+
+                        // Inject virtual fields so Media Mapper frontend knows this has images
+                        if (['hero', 'features', 'cards', 'highlights', 'text_block', 'list'].includes(secType.toLowerCase())) {
+                            rows = rows.map(r => {
+                                let merged = typeof r === 'string' ? { titel: r } : { ...r };
+                                if (!('afbeelding' in merged) && !('image' in merged)) {
+                                    merged.afbeelding = "";
+                                }
+                                return merged;
+                            });
+                        }
+
+                        // the internal table name will tell /api/update where to find it
+                        // Formaat: filename::sectieIndex_sectieType
+                        const subTableName = `${tableName}::${idx}_${secType}`;
+
+                        // Pass along the rows to the UI
+                        tables[subTableName] = rows;
+                    });
+                } else {
+                    // Traditional Flat Array (e.g. settings.json or old format)
+                    if (!Array.isArray(parsed)) parsed = [parsed];
+                    tables[tableName] = parsed;
+                }
+            } catch (e) {
+                console.error(`Media Mapper: kon ${filePath} niet parsen.`);
+            }
+        }
     }
 
     // 3. Haal beschikbare modellen op uit .env
@@ -196,22 +245,47 @@ app.post('/api/update', (req, res) => {
     if (!activeProject) return res.status(400).json({ error: "Geen site geselecteerd" });
     const { table, rowIndex, key, value } = req.body;
 
-    const filePath = path.resolve(root, '../sites', activeProject, 'src/data', `${table}.json`);
-    
+    const [realTable, sectionInfo] = table.split('::');
+    const filePath = path.resolve(root, '../sites', activeProject, 'src/data', `${realTable}.json`);
+
     try {
         const raw = fs.readFileSync(filePath, 'utf8');
         let data = JSON.parse(raw);
-        const wasArray = Array.isArray(data);
-        if (!wasArray) data = [data];
 
-        if (data[rowIndex]) {
-            data[rowIndex][key] = value;
-            
-            const contentToWrite = wasArray ? data : data[0];
-            fs.writeFileSync(filePath, JSON.stringify(contentToWrite, null, 2));
+        if (sectionInfo) {
+            // het is een specifieke MPA sectie update
+            const secIdxStr = sectionInfo.split('_')[0];
+            const secIdx = parseInt(secIdxStr, 10);
+            const secContent = data.content.sections[secIdx].content;
+
+            if (secContent.items && Array.isArray(secContent.items)) {
+                let targetRow = secContent.items[rowIndex];
+                if (typeof targetRow === 'string') {
+                    // Zet om naar object als het enkel een string was
+                    targetRow = { titel: targetRow };
+                    secContent.items[rowIndex] = targetRow;
+                }
+                targetRow[key] = value;
+            } else {
+                secContent[key] = value;
+            }
+
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
             res.json({ success: true });
         } else {
-            res.status(404).json({ error: "Rij niet gevonden" });
+            // Klassieke tabel array update
+            const wasArray = Array.isArray(data);
+            if (!wasArray) data = [data];
+
+            if (data[rowIndex]) {
+                data[rowIndex][key] = value;
+
+                const contentToWrite = wasArray ? data : data[0];
+                fs.writeFileSync(filePath, JSON.stringify(contentToWrite, null, 2));
+                res.json({ success: true });
+            } else {
+                res.status(404).json({ error: "Rij niet gevonden" });
+            }
         }
     } catch (e) {
         res.status(500).json({ error: e.message });
@@ -474,9 +548,9 @@ app.post('/api/generate-image', async (req, res) => {
             const buffer = Buffer.from(await response.arrayBuffer());
             fs.writeFileSync(path.join(targetDir, safeName), buffer);
             resultSent = true;
-            return res.json({ 
-                success: true, 
-                filename: safeName, 
+            return res.json({
+                success: true,
+                filename: safeName,
                 provider: 'fallback-placeholder',
                 notice: "AI diensten waren onbereikbaar. Dit is een tijdelijke placeholder."
             });

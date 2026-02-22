@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,40 +13,60 @@
             --bg: #0f172a;
             --panel: #1e293b;
             --border: #334155;
-            --accent: #a855f7; /* Purple */
+            --accent: #a855f7;
+            /* Purple */
             --success: #22c55e;
         }
-        body { 
-            background-color: var(--bg); 
-            color: #f8fafc; 
+
+        body {
+            background-color: var(--bg);
+            color: #f8fafc;
             font-family: 'Inter', sans-serif;
         }
-        .panel { background-color: var(--panel); border: 1px solid var(--border); }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
 
-        .draggable-img { 
-            cursor: grab; 
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; 
+        .panel {
+            background-color: var(--panel);
+            border: 1px solid var(--border);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .draggable-img {
+            cursor: grab;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             background: #334155;
             border: 1px solid var(--border);
             user-select: none;
         }
-        .draggable-img:hover { 
-            transform: translateY(-2px); 
-            border-color: var(--accent); 
+
+        .draggable-img:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
             box-shadow: 0 10px 20px -5px rgba(168, 85, 247, 0.3);
         }
-        .draggable-img:active { cursor: grabbing; }
 
-        .dropzone { 
-            background: rgba(15, 23, 42, 0.5); 
-            border: 2px dashed var(--border); 
-            min-height: 80px; 
+        .draggable-img:active {
+            cursor: grabbing;
+        }
+
+        .dropzone {
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px dashed var(--border);
+            min-height: 80px;
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -53,20 +74,25 @@
             position: relative;
             overflow: hidden;
         }
-        .dropzone.drag-over { 
-            border-color: var(--success); 
-            background: rgba(34, 197, 94, 0.1); 
+
+        .dropzone.drag-over {
+            border-color: var(--success);
+            background: rgba(34, 197, 94, 0.1);
             transform: scale(1.02);
         }
-        .dropzone * { pointer-events: none; }
-        .dropzone img { 
-            max-height: 100%; 
-            max-width: 100%; 
-            object-fit: cover; 
+
+        .dropzone * {
+            pointer-events: none;
+        }
+
+        .dropzone img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: cover;
             width: 100%;
             height: 100%;
         }
-        
+
         .site-btn {
             @apply w-full text-left p-4 rounded-xl border border-border bg-slate-800/50 hover:bg-purple-500/20 hover:border-purple-500 transition-all font-bold flex justify-between items-center;
         }
@@ -77,7 +103,9 @@
             transition: all 0.3s;
             cursor: pointer;
         }
-        .upload-zone:hover, .upload-zone.drag-active {
+
+        .upload-zone:hover,
+        .upload-zone.drag-active {
             border-color: var(--accent);
             background: rgba(168, 85, 247, 0.15);
         }
@@ -100,56 +128,153 @@
             z-index: 10;
             line-height: 1;
         }
-        .draggable-img:hover .delete-btn { display: flex; }
-        .delete-btn:hover { background: #dc2626; }
 
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        .draggable-img:hover .delete-btn {
+            display: flex;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
 
         .tab-btn {
-            flex: 1; padding: 10px 4px; text-align: center; font-size: 10px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.05em; color: #64748b;
-            border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+            flex: 1;
+            padding: 10px 4px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-        .tab-btn:hover { color: #cbd5e1; }
-        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-        .tab-panel { display: none; flex-direction: column; flex: 1; overflow: hidden; min-height: 0; }
-        .tab-panel.active { display: flex; }
+
+        .tab-btn:hover {
+            color: #cbd5e1;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-panel {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .tab-panel.active {
+            display: flex;
+        }
 
         .ai-textarea {
-            background: #0f172a; border: 1px solid var(--border); color: #f8fafc;
-            border-radius: 12px; padding: 12px; font-size: 13px; resize: vertical;
-            font-family: 'Inter', sans-serif; line-height: 1.5;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: #f8fafc;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 13px;
+            resize: vertical;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
         }
-        .ai-textarea:focus { outline: none; border-color: var(--accent); }
-        .ai-textarea::placeholder { color: #475569; }
+
+        .ai-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .ai-textarea::placeholder {
+            color: #475569;
+        }
 
         .action-btn {
-            padding: 10px 16px; border-radius: 12px; font-size: 11px; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.05em; border: none; cursor: pointer;
-            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .action-btn-primary { background: #7c3aed; color: white; }
-        .action-btn-primary:hover:not(:disabled) { background: #6d28d9; }
-        .action-btn-secondary { background: #1e293b; color: #a855f7; border: 1px solid #334155; }
-        .action-btn-secondary:hover:not(:disabled) { background: #334155; }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-btn-primary {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .action-btn-primary:hover:not(:disabled) {
+            background: #6d28d9;
+        }
+
+        .action-btn-secondary {
+            background: #1e293b;
+            color: #a855f7;
+            border: 1px solid #334155;
+        }
+
+        .action-btn-secondary:hover:not(:disabled) {
+            background: #334155;
+        }
 
         .spinner {
-            width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
+
 <body class="h-screen flex flex-col overflow-hidden">
 
     <!-- SITE SELECTION MODAL -->
-    <div id="site-modal" class="fixed inset-0 bg-slate-950/90 z-[100] flex items-center justify-center backdrop-blur-md">
+    <div id="site-modal"
+        class="fixed inset-0 bg-slate-950/90 z-[100] flex items-center justify-center backdrop-blur-md">
         <div class="bg-panel p-10 rounded-3xl shadow-2xl text-center max-w-lg w-full border border-border">
-            <div class="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-500 text-3xl">
+            <div
+                class="w-20 h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-500 text-3xl">
                 <i class="fa-solid fa-images"></i>
             </div>
             <h2 class="text-3xl font-black mb-2 font-serif text-white">Media Mapper</h2>
@@ -161,13 +286,16 @@
     </div>
 
     <!-- HELP MODAL -->
-    <div id="help-modal" class="fixed inset-0 bg-slate-950/90 z-[110] flex items-center justify-center backdrop-blur-md hidden">
+    <div id="help-modal"
+        class="fixed inset-0 bg-slate-950/90 z-[110] flex items-center justify-center backdrop-blur-md hidden">
         <div class="bg-panel p-10 rounded-3xl shadow-2xl max-w-2xl w-full border border-border relative">
-            <button onclick="toggleHelp()" class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
+            <button onclick="toggleHelp()"
+                class="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark text-2xl"></i>
             </button>
 
-            <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-500 text-2xl">
+            <div
+                class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-500 text-2xl">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
 
@@ -175,29 +303,47 @@
 
             <div class="space-y-6 text-slate-300">
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">1</div>
-                    <p><strong class="text-white">Selecteer een Site:</strong> Kies de website waarvan je de media wilt beheren.</p>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">
+                        1</div>
+                    <p><strong class="text-white">Selecteer een Site:</strong> Kies de website waarvan je de media wilt
+                        beheren.</p>
                 </div>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">2</div>
-                    <p><strong class="text-white">Bibliotheek (Links):</strong> In de linker kolom zie je alle afbeeldingen die beschikbaar zijn in de <code class="bg-slate-800 px-1 rounded text-purple-400">public/images</code> map van je site.</p>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">
+                        2</div>
+                    <p><strong class="text-white">Bibliotheek (Links):</strong> In de linker kolom zie je alle
+                        afbeeldingen die beschikbaar zijn in de <code
+                            class="bg-slate-800 px-1 rounded text-purple-400">public/images</code> map van je site.</p>
                 </div>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">3</div>
-                    <p><strong class="text-white">Data Tabellen (Midden):</strong> Het hoofdvenster toont je data-bestanden (JSON) die afbeeldingsvelden bevatten.</p>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">
+                        3</div>
+                    <p><strong class="text-white">Data Tabellen (Midden):</strong> Het hoofdvenster toont je
+                        data-bestanden (JSON) die afbeeldingsvelden bevatten.</p>
                 </div>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">4</div>
-                    <p><strong class="text-white">Sleep & Koppel:</strong> Sleep een afbeelding uit de bibliotheek naar een 'dropzone' in de tabel. De dropzone herken je aan de tekst "Sleep foto" of een bestaande afbeelding.</p>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">
+                        4</div>
+                    <p><strong class="text-white">Sleep & Koppel:</strong> Sleep een afbeelding uit de bibliotheek naar
+                        een 'dropzone' in de tabel. De dropzone herken je aan de tekst "Sleep foto" of een bestaande
+                        afbeelding.</p>
                 </div>
                 <div class="flex gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">5</div>
-                    <p><strong class="text-white">Automatisch Opslaan:</strong> Zodra je een afbeelding loslaat, wordt het JSON-bestand op de server direct bijgewerkt.</p>
+                    <div
+                        class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 font-bold text-purple-500">
+                        5</div>
+                    <p><strong class="text-white">Automatisch Opslaan:</strong> Zodra je een afbeelding loslaat, wordt
+                        het JSON-bestand op de server direct bijgewerkt.</p>
                 </div>
             </div>
 
             <div class="mt-10 pt-6 border-t border-border flex justify-end">
-                <button onclick="toggleHelp()" class="px-8 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-500/20">
+                <button onclick="toggleHelp()"
+                    class="px-8 py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-500/20">
                     Begrepen
                 </button>
             </div>
@@ -208,23 +354,31 @@
     <header class="h-20 bg-slate-900 border-b border-border flex items-center justify-between px-8 shrink-0 z-50">
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
-                <span class="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
+                <span
+                    class="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
                     <i class="fa-solid fa-camera-retro"></i>
                 </span>
-                <h1 class="text-xl font-black tracking-tighter uppercase text-white">Visual <span class="text-purple-500">Media</span></h1>
+                <h1 class="text-xl font-black tracking-tighter uppercase text-white">Visual <span
+                        class="text-purple-500">Media</span></h1>
             </div>
-            <span id="active-site" class="px-4 py-1.5 bg-slate-800 border border-border rounded-full text-[10px] font-bold text-purple-400 tracking-widest uppercase">...</span>
+            <span id="active-site"
+                class="px-4 py-1.5 bg-slate-800 border border-border rounded-full text-[10px] font-bold text-purple-400 tracking-widest uppercase">...</span>
         </div>
-        
+
         <div class="flex items-center gap-4">
             <div class="text-right mr-4">
                 <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Status</p>
-                <p class="text-xs text-success flex items-center gap-2 font-bold"><span class="w-2 h-2 bg-success rounded-full animate-pulse"></span> Verbonden</p>
+                <p class="text-xs text-success flex items-center gap-2 font-bold"><span
+                        class="w-2 h-2 bg-success rounded-full animate-pulse"></span> Verbonden</p>
             </div>
-            <button onclick="toggleHelp()" class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-xl flex items-center justify-center transition-all border border-border text-slate-400" title="Instructies">
+            <button onclick="toggleHelp()"
+                class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-xl flex items-center justify-center transition-all border border-border text-slate-400"
+                title="Instructies">
                 <i class="fa-solid fa-circle-info"></i>
             </button>
-            <button onclick="location.reload()" class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-xl flex items-center justify-center transition-all border border-border text-slate-400" title="Herladen">
+            <button onclick="location.reload()"
+                class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-xl flex items-center justify-center transition-all border border-border text-slate-400"
+                title="Herladen">
                 <i class="fa-solid fa-rotate"></i>
             </button>
         </div>
@@ -249,12 +403,15 @@
             <!-- TAB: Bibliotheek -->
             <div id="tab-lib" class="tab-panel active">
                 <div id="upload-zone" class="upload-zone rounded-xl mx-4 mt-4 p-4 text-center shrink-0"
-                     onclick="document.getElementById('file-input').click()">
-                    <input type="file" id="file-input" multiple accept="image/*" class="hidden" onchange="handleFileUpload(this.files)">
+                    onclick="document.getElementById('file-input').click()">
+                    <input type="file" id="file-input" multiple accept="image/*" class="hidden"
+                        onchange="handleFileUpload(this.files)">
                     <i class="fa-solid fa-cloud-arrow-up text-purple-500 text-xl mb-1"></i>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Klik of sleep bestanden</p>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Klik of sleep bestanden
+                    </p>
                 </div>
-                <div id="image-lib" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 gap-3 content-start custom-scrollbar min-h-0">
+                <div id="image-lib"
+                    class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 content-start custom-scrollbar min-h-0">
                     <!-- JS Populated -->
                 </div>
             </div>
@@ -263,12 +420,15 @@
             <div id="tab-unsplash" class="tab-panel">
                 <div class="p-4 space-y-3">
                     <div>
-                        <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Zoekterm</label>
+                        <label
+                            class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Zoekterm</label>
                         <input id="unsplash-query" type="text" placeholder="bijv. kapsalon interieur"
                             class="ai-textarea w-full" style="resize:none; padding:10px;">
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Bestandsnaam (optioneel)</label>
+                        <label
+                            class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Bestandsnaam
+                            (optioneel)</label>
                         <input id="unsplash-filename" type="text" placeholder="auto-generated"
                             class="ai-textarea w-full" style="resize:none; padding:10px;">
                     </div>
@@ -284,10 +444,12 @@
             <div id="tab-ai" class="tab-panel">
                 <div class="p-4 space-y-4">
                     <div>
-                        <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Optie A: AI Prompt Helper</label>
+                        <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Optie
+                            A: AI Prompt Helper</label>
                         <textarea id="ai-description" rows="2" placeholder="Beschrijf kort wat je wilt zien..."
                             class="ai-textarea w-full mb-2"></textarea>
-                        <button id="prompt-btn" class="action-btn action-btn-secondary w-full" onclick="generatePrompt()">
+                        <button id="prompt-btn" class="action-btn action-btn-secondary w-full"
+                            onclick="generatePrompt()">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> Genereer Prompt
                         </button>
                     </div>
@@ -296,30 +458,37 @@
 
                     <div id="prompt-output-wrap">
                         <div class="flex items-center justify-between mb-1">
-                            <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Optie B: Directe Beeld Prompt</label>
-                            <button onclick="copyPrompt(event)" class="text-[10px] text-purple-400 hover:text-purple-300 font-bold cursor-pointer flex items-center gap-1">
+                            <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Optie B:
+                                Directe Beeld Prompt</label>
+                            <button onclick="copyPrompt(event)"
+                                class="text-[10px] text-purple-400 hover:text-purple-300 font-bold cursor-pointer flex items-center gap-1">
                                 <i class="fa-solid fa-copy"></i>
                             </button>
                         </div>
-                        <textarea id="ai-prompt-result" rows="4" placeholder="Typ hier je eigen prompt..." class="ai-textarea w-full text-purple-300"></textarea>
+                        <textarea id="ai-prompt-result" rows="4" placeholder="Typ hier je eigen prompt..."
+                            class="ai-textarea w-full text-purple-300"></textarea>
                     </div>
 
                     <div id="ai-image-actions" class="space-y-3">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Model / Dienst</label>
+                                <label
+                                    class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Model
+                                    / Dienst</label>
                                 <select id="ai-provider" class="ai-textarea w-full p-2 h-[42px]">
                                     <option value="waterfall">🔄 Waterfall</option>
                                     <option value="pollinations">🎨 Pollinations</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Bestandsnaam</label>
+                                <label
+                                    class="text-[10px] text-slate-500 uppercase tracking-widest font-bold block mb-1">Bestandsnaam</label>
                                 <input id="ai-filename" type="text" placeholder="bestandsnaam.png"
                                     class="ai-textarea w-full p-2 h-[42px]" style="resize:none;">
                             </div>
                         </div>
-                        <button id="generate-img-btn" class="action-btn action-btn-primary w-full" onclick="generateImage()">
+                        <button id="generate-img-btn" class="action-btn action-btn-primary w-full"
+                            onclick="generateImage()">
                             <i class="fa-solid fa-image"></i> Genereer Afbeelding
                         </button>
                     </div>
@@ -353,7 +522,7 @@
                 const res = await fetch('/api/sites');
                 const sites = await res.json();
                 const list = document.getElementById('site-list');
-                
+
                 if (sites.length === 0) {
                     list.innerHTML = "<p class='text-red-500'>Geen websites gevonden in de /sites map.</p>";
                     return;
@@ -371,7 +540,7 @@
         async function selectSite(site) {
             await fetch('/api/set-site', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ site })
             });
             currentProject = site;
@@ -383,7 +552,7 @@
         async function loadData() {
             const res = await fetch('/api/data');
             const data = await res.json();
-            
+
             renderImages(data.images, data.project);
             renderTables(data.tables, data.project);
             renderModelDropdown(data.models);
@@ -392,15 +561,15 @@
         function renderModelDropdown(models) {
             const select = document.getElementById('ai-provider');
             if (!select || !models) return;
-            
+
             let html = '<option value="waterfall">🔄 Waterfall (Aanbevolen)</option>';
             html += '<option value="pollinations">🎨 Pollinations (Snel)</option>';
-            
+
             models.forEach(m => {
                 const displayName = m.replace(/^google\//, '').split(':')[0];
                 html += `<option value="gemini:${m}">🤖 Gemini: ${displayName}</option>`;
             });
-            
+
             select.innerHTML = html;
         }
 
@@ -413,19 +582,19 @@
             container.innerHTML = images.map(img => {
                 const escapedImg = img.replace(/'/g, "\\'");
                 return `
-                    <div class="draggable-img rounded-xl p-1 overflow-hidden group shadow-lg relative" 
+                    <div class="draggable-img rounded-xl p-1 overflow-hidden group shadow-lg relative shrink-0" 
                          draggable="true" 
                          ondragstart="drag(event, '${escapedImg}')">
                         <button class="delete-btn" onclick="event.stopPropagation(); deleteImage('${escapedImg}')" title="Verwijder">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                        <div class="relative h-24 overflow-hidden rounded-lg bg-slate-900 pointer-events-none">
+                        <div class="relative h-32 overflow-hidden rounded-lg bg-slate-900 pointer-events-none">
                             <img src="/${project}/images/${img}" 
                                  draggable="false" 
                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         </div>
-                        <div class="p-2 pointer-events-none">
-                            <div class="text-[9px] text-slate-400 truncate font-mono uppercase tracking-tighter" title="${img}">${img}</div>
+                        <div class="p-2 pointer-events-none bg-slate-800/50 mt-1 rounded-b-lg">
+                            <div class="text-[10px] text-slate-300 truncate font-mono font-bold" title="${img}">${img}</div>
                         </div>
                     </div>
                 `;
@@ -436,18 +605,18 @@
             const container = document.getElementById('tables-container');
             const html = Object.entries(tables).map(([tableName, rows]) => {
                 if (rows.length === 0) return '';
-                
+
                 const sample = rows[0];
                 const cols = Object.keys(sample).filter(k => k !== 'absoluteIndex');
-                const imgCols = cols.filter(k => 
-                    k.toLowerCase().includes('img') || 
-                    k.toLowerCase().includes('image') || 
-                    k.toLowerCase().includes('afbeelding') || 
+                const imgCols = cols.filter(k =>
+                    k.toLowerCase().includes('img') ||
+                    k.toLowerCase().includes('image') ||
+                    k.toLowerCase().includes('afbeelding') ||
                     k.toLowerCase().includes('foto') ||
                     k.endsWith('_url')
                 );
 
-                if (imgCols.length === 0) return ''; 
+                if (imgCols.length === 0) return '';
 
                 return `
                     <div class="panel rounded-[2rem] border border-border overflow-hidden shadow-2xl animate-fadeIn">
@@ -468,11 +637,11 @@
                                     ${rows.map((row, rIdx) => `
                                         <tr class="hover:bg-slate-800/30 transition-colors">
                                             ${cols.map(key => {
-                                                const val = row[key];
-                                                const isImg = imgCols.includes(key);
-                                                
-                                                if (isImg) {
-                                                    return `
+                    const val = row[key];
+                    const isImg = imgCols.includes(key);
+
+                    if (isImg) {
+                        return `
                                                         <td class="p-3 w-40">
                                                             <div class="dropzone rounded-2xl shadow-inner group" 
                                                                  ondrop="drop(event, '${tableName}', ${row.absoluteIndex ?? rIdx}, '${key}')" 
@@ -483,9 +652,9 @@
                                                             </div>
                                                         </td>
                                                     `;
-                                                }
-                                                return `<td class="px-6 py-4 truncate max-w-[200px] text-xs font-medium">${val || '-'}</td>`;
-                                            }).join('')}
+                    }
+                    return `<td class="px-6 py-4 truncate max-w-[200px] text-xs font-medium">${val || '-'}</td>`;
+                }).join('')}
                                         </tr>
                                     `).join('')}
                                 </tbody>
@@ -523,14 +692,14 @@
             const dropzone = ev.currentTarget;
             dropzone.classList.remove('drag-over');
             const filename = ev.dataTransfer.getData("text");
-            
+
             // Optimistic Update
             dropzone.innerHTML = `<img src="/${currentProject}/images/${filename}" title="${filename}" class="rounded-xl animate-pulse">`;
 
             try {
                 const res = await fetch('/api/update', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         table, rowIndex: index, key, value: filename
                     })
@@ -757,4 +926,5 @@
         init();
     </script>
 </body>
+
 </html>

@@ -85,8 +85,8 @@
     "siteType": "webshop-pay",
     "generatedAt": "2026-02-04T15:55:27.705Z",
     "governance_mode": "dev-mode",
-    "repoUrl": null,
-    "liveUrl": null,
+    "repoUrl": "https://github.com/athena-cms-factory/urban-soles",
+    "liveUrl": "https://athena-cms-factory.github.io/urban-soles",
     "port": 5815
   },
   {
@@ -105,8 +105,8 @@
     "siteType": "professional-service-provider",
     "generatedAt": "2026-02-04T15:55:23.382Z",
     "governance_mode": "dev-mode",
-    "repoUrl": null,
-    "liveUrl": null,
+    "repoUrl": "https://github.com/athena-cms-factory/athena-hub",
+    "liveUrl": "https://athena-cms-factory.github.io/athena-hub",
     "port": 6041
   },
   {

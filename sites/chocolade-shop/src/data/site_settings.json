@@ -3,7 +3,9 @@
     "title": "Belgian Chocolate",
     "global_shadow": "none",
     "global_radius": "0px",
-    "light_bg_color": "#f5bcbc",
-    "light_header_color": "#e7c1c1"
+    "light_bg_color": "#ffa8a8",
+    "light_header_color": "#ffa8a8",
+    "--color-header-rgb": "255 168 168",
+    "--color-bg-rgb": "255 168 168"
   }
 ]
