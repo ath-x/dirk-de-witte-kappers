@@ -18,7 +18,8 @@
           "titel": "Bezoekdag voor familie en naastbetrokkenen",
           "tagline": "FPC Gent organiseert een bezoekdag om naasten te informeren over de werking en de belangrijke rol van familie te benadrukken.",
           "cta_text": null,
-          "image": "zorg-op-maat-cropped.jpg"
+          "image": "zorg-op-maat-cropped.jpg",
+          "afbeelding": "zorg-op-maat-cropped.jpg"
         }
       },
       {
@@ -37,25 +38,29 @@
               "titel": "Infomoment",
               "beschrijving": "We leggen uit waarvoor FPC Gent staat en hoe we te werk gaan.",
               "icoon": null,
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Rondleiding",
               "beschrijving": "De afdeling en kamers van de patiënten kennen bezoekers van patiënten al, maar we tonen ook graag de rest van het behandelcentrum.",
               "icoon": null,
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Koffiemoment",
               "beschrijving": "Bij een tasje koffie en stukje taart gaan we graag in gesprek. Er staan medewerkers van verschillende diensten klaar om vragen te beantwoorden en/of ervaringen te delen.",
               "icoon": null,
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Bezoek",
               "beschrijving": "Nadien is er de mogelijkheid om op bezoek te gaan bij het familielid of de naastbetrokkene die in FPC Gent verblijft (aan te duiden bij inschrijving).",
               "icoon": null,
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             }
           ]
         }

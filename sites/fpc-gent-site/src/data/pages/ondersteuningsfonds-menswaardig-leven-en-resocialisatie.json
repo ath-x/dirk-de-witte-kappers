@@ -18,7 +18,8 @@
           "titel": "Een ondersteuningsfonds voor een menswaardig leven en resocialisatie",
           "tagline": "Het Magis3 fonds van FPC Gent bevordert re-integratie en zelfredzaamheid door middel van zinvolle dagbesteding.",
           "cta_text": "Ontdek Magis3",
-          "image": "FPC_Barbara-Joseph.jpg"
+          "image": "FPC_Barbara-Joseph.jpg",
+          "afbeelding": "FPC_Barbara-Joseph.jpg"
         }
       },
       {
@@ -37,13 +38,15 @@
               "titel": "Voorzien in Basismiddelen",
               "beschrijving": "Hulpbehoevende patiënten voorzien van basismiddelen middels een tegemoetkoming voor afgewerkte blokken arbeidstherapie.",
               "icoon": "hand-holding-heart",
-              "image": "FPC_Barbara-Joseph.jpg"
+              "image": "FPC_Barbara-Joseph.jpg",
+              "afbeelding": "FPC_Barbara-Joseph.jpg"
             },
             {
               "titel": "Bevorderen van Zelfredzaamheid en Financiële Geletterdheid",
               "beschrijving": "Patiënten zelfredzaam maken, afbetalingen aan gebeurlijke schuldeisers mogelijk maken en patiënten leren omgaan met financiële middelen.",
               "icoon": "piggy-bank",
-              "image": "FPC_Barbara-Joseph.jpg"
+              "image": "FPC_Barbara-Joseph.jpg",
+              "afbeelding": "FPC_Barbara-Joseph.jpg"
             }
           ]
         }

@@ -18,7 +18,8 @@
           "titel": "Bezoekdag voor familie en naastbetrokkenen",
           "tagline": "Een unieke gelegenheid voor familie en naasten om FPC Antwerpen te verkennen.",
           "cta_text": "Schrijf je nu in",
-          "image": "zorg-op-maat-cropped.jpg"
+          "image": "zorg-op-maat-cropped.jpg",
+          "afbeelding": "zorg-op-maat-cropped.jpg"
         }
       },
       {
@@ -44,37 +45,43 @@
               "titel": "Datum",
               "beschrijving": "Zaterdag 16 november 2019",
               "icoon": "calendar",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Toegang",
               "beschrijving": "De bezoekdag is voorbehouden voor gescreende familieleden en naastbetrokkenen.",
               "icoon": "users",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Aanwezigheid patiënt",
               "beschrijving": "Het familielid of de naastbetrokkene die in FPC Antwerpen verblijft, zal niet aanwezig zijn tijdens de presentatie en rondleiding. Het is uitzonderlijk mogelijk om na afloop – buiten de normale bezoektijden – een bezoek te brengen.",
               "icoon": "user-slash",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Groepen",
               "beschrijving": "Wie inschrijft, kan kiezen tussen drie groepen.",
               "icoon": "users-group",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Programma",
               "beschrijving": "Het bezoek bestaat uit een toelichting, een rondleiding en de mogelijkheid tot het stellen van vragen aan zowel interne diensten als externe partners.",
               "icoon": "info-circle",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             },
             {
               "titel": "Duur",
               "beschrijving": "Het bezoek neemt ongeveer anderhalf tot twee uur in beslag.",
               "icoon": "clock",
-              "image": "zorg-op-maat-cropped.jpg"
+              "image": "zorg-op-maat-cropped.jpg",
+              "afbeelding": "zorg-op-maat-cropped.jpg"
             }
           ]
         }

@@ -25,7 +25,8 @@
           "tagline": null,
           "cta_text": "Meer over onze aanpak",
           "link": "/behandelcentra/",
-          "image": "FPCG_Inkom-e1502112948421.jpg"
+          "image": "FPCG_Inkom-e1502112948421.jpg",
+          "afbeelding": "FPCG_Inkom-e1502112948421.jpg"
         }
       },
       {
@@ -38,14 +39,16 @@
               "beschrijving": "biedt plaats aan 182 patiënten, zowel mannen als vrouwen, die omwille van een psychische stoornis strafbare feiten hebben gepleegd maar niet thuishoren in een gevangenis.",
               "link": "/behandelcentra/fpc-antwerpen/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             },
             {
               "titel": "FPC Gent",
               "beschrijving": "biedt plaats aan 264 mannelijke patiënten die omwille van een psychische stoornis strafbare feiten hebben gepleegd maar niet thuishoren in een gevangenis.",
               "link": "/behandelcentra/fpc-gent/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             }
           ]
         }
@@ -67,7 +70,8 @@
               "beschrijving": null,
               "link": "/jobs/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             }
           ]
         }
@@ -82,28 +86,32 @@
               "beschrijving": "Kwaliteitsvolle zorg, Projecten en activiteiten/evenementen 15 december 2025",
               "link": "/meer-dan-meubels-hoe-een-huiselijke-leefgroep-voor-meer-contact-en-welzijn-zorgt/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             },
             {
               "titel": "Hoofdgeneesheer FPC Gent in ‘De volksjury achter de crime scene’",
               "beschrijving": "Getuigenissen 09 december 2025",
               "link": "/hoofgeneesheer-fpc-gent-in-de-volksjury-achter-de-crime-scene/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             },
             {
               "titel": "Officiële erkenning voor kwaliteitsbeleid binnen de zorg",
               "beschrijving": "Kwaliteitsvolle zorg 09 december 2025",
               "link": "/officiele-erkenning-voor-kwaliteitsbeleid-binnen-de-zorg-2/",
               "icoon": null,
-              "image": "fpc-blok1.jpg"
+              "image": "fpc-blok1.jpg",
+              "afbeelding": "fpc-blok1.jpg"
             },
             {
               "titel": "Evolutie van het risico op herval in geweldsdelicten: bestaan er verschillende trajecten?",
               "beschrijving": "Wetenschappelijk onderzoek 01 december 2025",
               "link": "/evolutie-van-het-risico-op-herval-in-geweldsdelicten-bestaan-er-verschillende-trajecten/",
               "icoon": null,
-              "image": "FPCG_Inkom-e1502112948421.jpg"
+              "image": "FPCG_Inkom-e1502112948421.jpg",
+              "afbeelding": "FPCG_Inkom-e1502112948421.jpg"
             }
           ]
         }
