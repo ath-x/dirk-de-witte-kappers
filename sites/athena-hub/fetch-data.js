@@ -107,6 +107,19 @@ async function sync() {
             console.error(`  ❌ Fout bij verwerken van ${name}:`, e.message);
         }
     }
+
+    // Phase 8: Data Aggregation (v8 Standard)
+    console.log(`📦 Aggregating all data for runtime optimization...`);
+    const allData = {};
+    const dataFiles = fs.readdirSync(path.join(process.cwd(), 'src/data')).filter(f => f.endsWith('.json') && f !== 'all_data.json');
+    
+    for (const file of dataFiles) {
+        const key = file.replace('.json', '');
+        allData[key] = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data', file), 'utf8'));
+    }
+    
+    fs.writeFileSync(path.join(process.cwd(), 'src/data/all_data.json'), JSON.stringify(allData, null, 2));
+    console.log(`  ✨ all_data.json generated.`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

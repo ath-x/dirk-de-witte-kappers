@@ -4,7 +4,7 @@ import React from 'react';
  * EditableMedia (v7.9.2 - Docked Track)
  * Passive wrapper that binds to the Athena Dock.
  */
-export default function EditableMedia({ src, alt, className, cmsBind, table, field, id, ...props }) {
+export default function EditableMedia({ src, alt, className, cmsBind, table, field, id, priority, ...props }) {
   const isDev = import.meta.env.DEV;
   const binding = cmsBind || { file: table, key: field, index: id || 0 };
 
@@ -17,7 +17,7 @@ export default function EditableMedia({ src, alt, className, cmsBind, table, fie
   const renderMedia = () => {
     if (isVideo) return <video src={finalSrc} className={className} autoPlay muted loop playsInline {...props} />;
     if (!src) return <div className={`bg-slate-200 flex items-center justify-center text-slate-400 ${className}`}>🖼️</div>;
-    return <img src={finalSrc} alt={alt} className={className} {...props} />;
+    return <img src={finalSrc} alt={alt} className={className} fetchPriority={priority ? "high" : "auto"} {...props} />;
   };
 
   if (!isDev) return renderMedia();

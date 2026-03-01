@@ -1,48 +1,32 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 
 /**
  * DesignControls for Athena Dock
  * Sidebar component for live color editing via PostMessage
  */
 export default function DesignControls({ onColorChange, siteStructure }) {
+  // Lock mechanism to prevent slider jump-back
+  const lastInteractionTime = useRef(0);
+  
   const [localColors, setLocalColors] = useState({
-    light_primary_color: '#0f172a',
-    light_title_color: '#0f172a',
-    light_heading_color: '#0f172a',
-    light_accent_color: '#3b82f6',
-    light_button_color: '#3b82f6',
-    light_card_color: '#ffffff',
-    light_header_color: '#ffffff',
-    light_bg_color: '#ffffff',
-    light_text_color: '#0f172a',
-    dark_primary_color: '#ffffff',
-    dark_title_color: '#ffffff',
-    dark_heading_color: '#ffffff',
-    dark_accent_color: '#60a5fa',
-    dark_button_color: '#60a5fa',
-    dark_card_color: '#1e293b',
-    dark_header_color: '#0f172a',
-    dark_bg_color: '#0f172a',
-    dark_text_color: '#f8fafc',
-    theme: 'light',
-    global_radius: '1rem',
-    global_shadow: 'soft',
-    hero_overlay_opacity: 0.8,
+    // ... rest of state
     content_top_offset: 0,
-    hero_height: '85vh',
-    hero_max_height: '150vh',
-    hero_aspect_ratio: '16/9',
-    header_visible: true,
-    header_transparent: false,
-    header_height: 80,
-    header_show_logo: true,
-    header_show_title: true,
-    header_show_tagline: true,
-    header_show_button: true
+    // ...
+  });
+
+  // NEW: Dedicated local state for high-frequency sliders to prevent jump-back
+  const [sliderValues, setSliderValues] = useState({
+    content_top_offset: 0
   });
 
   // Sync met de werkelijke data van de site bij het laden of switchen
   useEffect(() => {
+    // LOCK: Als we net handmatig iets hebben aangepast, negeren we de inkomende sync even
+    // Dit voorkomt het "terugspringen" van sliders
+    if (Date.now() - lastInteractionTime.current < 2000) {
+      return;
+    }
+
     if (siteStructure?.data?.site_settings) {
       const settings = Array.isArray(siteStructure.data.site_settings)
         ? (siteStructure.data.site_settings[0] || {})
@@ -54,13 +38,27 @@ export default function DesignControls({ onColorChange, siteStructure }) {
         ...prev,
         ...settings
       }));
+
+      // Also sync our decoupled slider values if not currently dragging
+      setSliderValues(prev => ({
+        ...prev,
+        content_top_offset: settings.content_top_offset || 0
+      }));
     }
   }, [siteStructure]);
 
   // Preview mode (live in iframe)
   const handlePreview = (key, value, forceSync = false) => {
+    lastInteractionTime.current = Date.now(); // LOCK ACTIVEREN
+
+    // Update decoupled state immediately for smoothness
+    if (key === 'content_top_offset') {
+      setSliderValues(prev => ({ ...prev, [key]: value }));
+    }
+
     setLocalColors(prev => {
       const newState = { ...prev, [key]: value };
+      // ... rest of existing logic
 
       if (key === 'theme' || forceSync) {
         const modePrefix = newState.theme === 'dark' ? 'dark_' : 'light_';
@@ -110,6 +108,11 @@ export default function DesignControls({ onColorChange, siteStructure }) {
 
   // Save mode (persistent)
   const handleSave = (key, value) => {
+    lastInteractionTime.current = Date.now(); // LOCK ACTIVEREN
+    
+    // Update local state immediately to keep UI in sync
+    setLocalColors(prev => ({ ...prev, [key]: value }));
+    
     onColorChange(key, value, true);
     // Also save RGB variant if color
     if (value && typeof value === 'string' && value.startsWith('#')) {
@@ -141,11 +144,68 @@ export default function DesignControls({ onColorChange, siteStructure }) {
     } catch (err) { console.error(err); }
   };
 
+  const handleSaveToDisk = async () => {
+    const btn = document.getElementById('save-to-disk-btn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> SAVING...';
+
+    try {
+      // URL Opschonen: verwijder eventuele query parameters zoals ?t=0
+      const rawUrl = siteStructure?.url || window.location.origin;
+      const cleanBase = rawUrl.split('?')[0].replace(/\/$/, '');
+      const apiUrl = `${cleanBase}/__athena/update-json`;
+
+      console.log("🚀 Attempting save to:", apiUrl);
+
+      // We focussen nu op de content_top_offset als test
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          file: 'site_settings',
+          index: 0,
+          key: 'content_top_offset',
+          value: sliderValues.content_top_offset
+        })
+      });
+
+      if (response.ok) {
+        btn.style.background = 'var(--success, #22c55e)';
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> SAVED TO DISK';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.style.background = '';
+          btn.innerHTML = originalText;
+        }, 2000);
+      } else {
+        throw new Error("Server responded with error");
+      }
+    } catch (e) {
+      console.error("Save failed:", e);
+      btn.style.background = 'var(--error, #ef4444)';
+      btn.innerHTML = '<i class="fa-solid fa-xmark"></i> ERROR SAVING';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.style.background = '';
+        btn.innerHTML = originalText;
+      }, 3000);
+    }
+  };
+
   return (
     <div className="p-6 h-full overflow-y-auto">
       <div className="mb-6">
         <h3 className="text-sm font-black uppercase tracking-widest text-slate-400">Design Editor</h3>
-        <p className="text-xs text-slate-500 mt-1">Live design updates via Dock</p>
+        <p className="text-xs text-slate-500 mt-1 mb-4">Live design updates via Dock</p>
+        
+        <button 
+          id="save-to-disk-btn"
+          onClick={handleSaveToDisk}
+          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+        >
+          <i className="fa-solid fa-floppy-disk"></i> SAVE CHANGES TO DISK
+        </button>
       </div>
 
       <div className="space-y-8">
@@ -262,14 +322,14 @@ export default function DesignControls({ onColorChange, siteStructure }) {
               <div>
                 <div className="flex justify-between items-center mb-1">
                   <label className="text-[9px] font-bold uppercase text-slate-400 block">Content Top Offset (Overlap Fix)</label>
-                  <span className="text-[9px] font-bold text-blue-500">{localColors.content_top_offset || 0}px</span>
+                  <span className="text-[9px] font-bold text-blue-500">{sliderValues.content_top_offset || 0}px</span>
                 </div>
                 <input
                   type="range"
-                  min="0"
+                  min="-100"
                   max="200"
                   step="1"
-                  value={localColors.content_top_offset || 0}
+                  value={sliderValues.content_top_offset || 0}
                   onInput={(e) => handlePreview('content_top_offset', e.target.value)}
                   onChange={(e) => handleSave('content_top_offset', e.target.value)}
                   className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"

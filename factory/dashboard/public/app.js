@@ -370,6 +370,9 @@ async function loadServerStatus() {
 
         if (siteServersData.servers && siteServersData.servers.length > 0) {
             siteServersData.servers.forEach(site => {
+                // Skip if it's already shown as a system server
+                if (site.isSystem) return;
+
                 const card = document.createElement('div');
                 card.className = 'server-card online status-live dynamic-site';
                 card.innerHTML = `

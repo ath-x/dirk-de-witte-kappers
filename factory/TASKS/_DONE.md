@@ -11,6 +11,10 @@
     - Bijgewerkt van `jets.json` met directe lokale paden.
 - [x] **Registry Fix**
     - Bijgewerkt van `dock/public/sites.json` met de correcte poort (6225) voor `jets-archive`.
+    - Geconfigureerd van `repoUrl` en `liveUrl` voor publicatie naar de `athena-cms-factory` organisatie.
+- [x] **Deployment Target Setup**
+    - Aangemaakt van `sites/jets-archive/project-settings/deployment.json` om de publisher te forceren de juiste GitHub organisatie te gebruiken.
+
 
 ## Live & URL Manager & Link Resolution - 2026-02-21
 - [x] **Athena URL Manager GUI**
@@ -184,3 +188,4 @@
 
 ## Earlier Tasks
 ...
+## [2026-03-01] Excellence Cycle v8 - Site #1 Complete\n- **Athena Hub (Site #1)**: Full v8 refactor (all_data.json, modular sections, LCP optimization).\n- **Dock-to-Disk Bridge**: Implemented explicit 'Save to Disk' with CORS and Middleware support.\n- **Multi-Agent Protocol**: Upgraded to v1.9 with Live Mirroring and session-specific roles.

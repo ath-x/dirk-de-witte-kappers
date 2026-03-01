@@ -1,10 +1,10 @@
 # Implementation Plan: Systematic Site Optimization (20260301)
 
 ## Phase 1: Preparation and Baseline Analysis
-- [ ] Task: Audit Pilot Sites Performance
-    - [ ] Run initial Lighthouse audits on representative pilot sites (e.g., `cloud-architects`, `pure-relaxation`).
-    - [ ] Record baseline scores and identified bottlenecks in a new `performance_report.md`.
-- [ ] Task: Audit Base Templates
+- [~] Task: Audit Sites Sequentially (Alphabetical Order)
+      - [x] Start with Site #1: `athena-hub`. Perform baseline Lighthouse audits and architectural review.
+      - [ ] Record baseline scores and identified bottlenecks in `performance_report.md`.
+      - [ ] Move through the list: `athena-pro`, `athena-promo`, etc.- [ ] Task: Audit Base Templates
     - [ ] Review `factory/2-templates/` for redundant JS/CSS and resource-intensive patterns.
     - [ ] Identify opportunities for script deferral and font optimization.
 

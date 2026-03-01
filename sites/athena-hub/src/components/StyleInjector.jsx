@@ -52,7 +52,11 @@ const StyleInjector = ({ siteSettings }) => {
       root.style.setProperty('--hero-overlay-end', `rgba(0, 0, 0, ${opacity * 0.4})`);
     }
 
-    if (settings.content_top_offset !== undefined) root.style.setProperty('--content-top-offset', settings.content_top_offset + 'px');
+    if (settings.content_top_offset !== undefined) {
+      const val = settings.content_top_offset + 'px';
+      console.log('🏗️ [StyleInjector] Setting --content-top-offset to:', val, '(from settings)');
+      root.style.setProperty('--content-top-offset', val);
+    }
     if (settings.header_height !== undefined) root.style.setProperty('--header-height', settings.header_height + 'px');
 
     // Header transparency
