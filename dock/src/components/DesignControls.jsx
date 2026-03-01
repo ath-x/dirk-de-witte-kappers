@@ -326,7 +326,7 @@ export default function DesignControls({ onColorChange, siteStructure }) {
                 </div>
                 <input
                   type="range"
-                  min="-100"
+                  min="0"
                   max="200"
                   step="1"
                   value={sliderValues.content_top_offset || 0}
