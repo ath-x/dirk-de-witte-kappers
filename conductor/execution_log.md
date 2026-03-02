@@ -111,3 +111,28 @@ Ik wacht op goedkeuring van de 🛡️ Lead Architect om dit plan op de huidige 
 \n[DIRECTIVE] Agent (Optimist): Finalize and Push. \n1. Start the background listener: 'node conductor/pulse.js agent Optimist &'. \n2. Commit all changes (package.json, pnpm-workspace.yaml, and deletions) to the current branch.\n3. Push to 'origin research/shared-node-modules-optimization'.\n4. Ping when the branch is up to date.
 
 [PING] Agent: Task/Phase completed at 2026-03-02T15:22:53.954Z. Waiting for Lead Architect validation.
+
+[PING] Agent: Task/Phase completed at 2026-03-02T15:26:23.354Z. Waiting for Lead Architect validation.
+\n[DIRECTIVE] Agent (Optimist): Site Reviewer Optimization Test. \n1. Start de Dashboard server in de 'factory' map.\n2. Open de Site Reviewer (localhost:5001/reviewer.html).\n3. Doorloop minimaal 5 verschillende sites (bv. athena-hub, pure-relaxation, demo-bakkerij).\n4. Bevestig dat de reviewer 'Build' en 'Preview' sneller uitvoert zonder lokale installs.\n5. Rapporteer eventuele runtime fouten in de console.\n6. Ping wanneer de live-test succesvol is doorlopen.
+\n[DIRECTIVE] Agent (Optimist): 🚀 TRIGGER PULSE - Site Reviewer Optimization Test. \n1. Start de Dashboard server in de 'factory' map (pnpm factory:start).\n2. Open de Site Reviewer in je browser via localhost:5001/reviewer.html.\n3. Doorloop minimaal 5 verschillende sites.\n4. Bevestig dat de reviewer razendsnel werkt nu we een shared monorepo hebben.\n5. Ping zodra de live-test is geslaagd.
+\n[DIRECTIVE] Agent (Optimist): 🟢 START LIVE TEST - Site Reviewer Optimization. \nDe monorepo is klaar. Voer nu de live-test uit in de Site Reviewer (localhost:5001/reviewer.html) zoals eerder beschreven. \nFocus op de snelheid van Build/Preview. \nPing mij zodra je resultaten hebt.
+
+[PING] Agent: Task/Phase completed at 2026-03-02T15:41:40.058Z. Waiting for Lead Architect validation.
+
+[PING] Agent: Task/Phase completed at 2026-03-02T15:43:15.333Z. Waiting for Lead Architect validation.
+\n[STATUS] Lead Architect: Site Reviewer test SUCCEEDED. Build speed = 1.43s. Monorepo workspace is validated. \n[DIRECTIVE] Agent (Optimist): 🏁 FINAL STEP - Merge to Main. \n1. Switch to branch 'main'.\n2. Merge 'research/shared-node-modules-optimization' into 'main'.\n3. Push 'main' to origin.\n4. Ping when main is updated and cleanup the research branch.
+\n[DIRECTIVE] Agent (Optimist): 🏁 FINAL PHASE - Merge to Main. \nBereid de merge van 'research/shared-node-modules-optimization' naar 'main' voor. \nSchrijf eerst een [PROPOSAL] met de exacte git commando's die je gaat gebruiken. \nWacht op mijn [APPROVED] voor je ze uitvoert.
+
+---
+### ⚙️ [PROPOSAL] Agent (Optimist): Merge naar Main
+**Stappenplan:**
+1. `git checkout main`
+2. `git merge research/shared-node-modules-optimization --no-ff -m "merge: implement monorepo root with shared node_modules optimization"`
+3. `git push origin main`
+4. `pnpm --filter athena-hub build` (Finale check op main)
+
+Wacht op **[APPROVED] Agent (Optimist)** voor uitvoering.
+---
+
+[PING] Agent: Task/Phase completed at 2026-03-02T15:49:47.452Z. Waiting for Lead Architect validation.
+\n[APPROVED] Agent (Optimist): Plan voor Merge naar Main is goedgekeurd. Voer de stappen uit en ping mij wanneer 'main' up-to-date is op de remote.

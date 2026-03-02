@@ -1,45 +1,36 @@
 import fs from 'fs';
-import path from 'path';
+const role = process.argv[2] || 'unknown';
+const id = process.argv[3] || 'unknown';
 
-const LOG_FILE = 'conductor/execution_log.md';
-const role = process.argv[2]; // 'lead' or 'agent'
-const id = process.argv[3];   // Agent ID (only needed for role='agent')
-
-if (!role || (role === 'agent' && !id)) {
-  console.error('❌ Usage: node conductor/pulse.js [lead | agent] [AgentID]');
-  process.exit(1);
-}
-
+// Sense for PINGs (Lead) or DIRECTIVES/APPROVALS (Agent)
 const targetTag = (role === 'lead') ? '[PING]' : `[DIRECTIVE] Agent (${id})`;
+const approvalTag = (role === 'agent') ? `[APPROVED] Agent (${id})` : '[PROPOSAL]';
 const globalTag = '[DIRECTIVE] ALL AGENTS';
 
-console.log(`📡 [Pulse] Initialized as ${role.toUpperCase()}${id ? ` (${id})` : ''}.`);
-console.log(`📡 [Pulse] Monitoring '${LOG_FILE}' for: ${targetTag}${role === 'agent' ? ` and ${globalTag}` : ''}`);
+console.log(`📡 Pulse active for ${role.toUpperCase()}: ${id} (v2.3)`);
+console.log(`📂 Monitoring conductor/execution_log.md for: ${targetTag} or ${approvalTag}`);
 
-let lastSize = fs.statSync(LOG_FILE).size;
+let lastContent = '';
+if (fs.existsSync('conductor/execution_log.md')) {
+  lastContent = fs.readFileSync('conductor/execution_log.md', 'utf8');
+}
 
-fs.watch(LOG_FILE, (eventType) => {
-  if (eventType === 'change') {
-    const stats = fs.statSync(LOG_FILE);
-    const newSize = stats.size;
-
-    if (newSize > lastSize) {
-      const stream = fs.createReadStream(LOG_FILE, { start: lastSize, end: newSize });
-      stream.on('data', (chunk) => {
-        const lines = chunk.toString().split('
-');
-        for (const line of lines) {
-          const trimmed = line.trim();
-          if (trimmed.includes(targetTag) || (role === 'agent' && trimmed.includes(globalTag))) {
-            console.log(`
-🔔 [PULSE DETECTED]: ${trimmed}`);
-            console.log('👉 Action Required: Synchronize now.');
-            // Exit 0 to signal the parent process to wake up
-            process.exit(0);
-          }
-        }
-      });
-      lastSize = newSize;
+const interval = setInterval(() => {
+  if (fs.existsSync('conductor/execution_log.md')) {
+    const currentContent = fs.readFileSync('conductor/execution_log.md', 'utf8');
+    if (currentContent !== lastContent) {
+      const diff = currentContent.replace(lastContent, '').trim();
+      
+      // Match the relevant sensing tags
+      if (diff.includes(targetTag) || 
+          diff.includes(approvalTag) || 
+          (role === 'agent' && diff.includes(globalTag))) {
+        console.log(`\n🔔 SIGNAL DETECTED:\n${diff}`);
+        console.log(`🛑 Pulse stopping for synchronization.`);
+        clearInterval(interval);
+        process.exit(0);
+      }
+      lastContent = currentContent;
     }
   }
-});
+}, 1000);
