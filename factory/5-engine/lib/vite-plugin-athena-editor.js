@@ -166,7 +166,7 @@ export default function athenaEditorPlugin() {
                 const commitMsg = payload.commitMsg || "Deploy from Athena Dock";
 
                 try {
-                  const deployWizardPath = path.resolve(rootDir, '../../factory/5-engine/deploy-wizard.js');
+                  const deployWizardPath = path.resolve(rootDir, '../../factory/5-engine/wizards/deploy-wizard.js');
                   const { deployProject } = await import(`file://${deployWizardPath}`);
                   const result = await deployProject(projectName, commitMsg);
                   console.log(`[Athena Editor] ✅ Action Successful:`, result.liveUrl);
