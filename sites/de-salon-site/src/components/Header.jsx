@@ -30,8 +30,11 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
     <>
       {/* Fixed Sticky Navigation Bar */}
       <nav
+        data-dock-element="header-nav"
         className="fixed top-0 left-0 right-0 z-[1000] w-full px-8 py-4 flex items-center justify-between border-b transition-all duration-300"
         style={{
+          display: settings.header_visible === false ? 'none' : 'flex',
+          height: settings.header_height ? `${settings.header_height}px` : 'var(--header-height, auto)',
           backgroundColor: 'var(--header-bg, var(--color-header, rgba(var(--color-primary-rgb), 0.6)))',
           backdropFilter: 'var(--header-blur, blur(12px))',
           borderColor: 'var(--header-border, rgba(255,255,255,0.1))'
@@ -39,7 +42,11 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
       >
         <div className="flex items-center gap-4">
           {settings.site_logo_image ? (
-            <div className="w-10 h-10 overflow-hidden">
+            <div 
+              data-dock-element="header-logo"
+              className="w-10 h-10 overflow-hidden"
+              style={{ display: settings.header_show_logo === false ? 'none' : 'block' }}
+            >
               <EditableMedia
                 src={settings.site_logo_image}
                 className="w-full h-full object-contain"
@@ -47,25 +54,37 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
               />
             </div>
           ) : (
-            <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-xl">
+            <div 
+              data-dock-element="header-logo"
+              className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center text-xl"
+              style={{ display: settings.header_show_logo === false ? 'none' : 'flex' }}
+            >
               <i className="fa-solid fa-scissors text-white"></i>
             </div>
           )}
           <EditableText
             tagName="span"
+            data-dock-element="header-title"
             value={rawTitle}
             className="font-serif font-bold text-xl tracking-tighter uppercase"
+            style={{ display: settings.header_show_title === false ? 'none' : 'inline' }}
             table="basisgegevens"
             id={0}
             field={fallbackTitleKey}
           />
         </div>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div 
+          data-dock-element="header-navbar"
+          className="hidden md:flex items-center gap-8"
+          style={{ display: settings.header_show_navbar === false ? 'none' : 'flex' }}
+        >
           {sortedNav.map((item, idx) => (
             <a
               key={idx}
               href={`#${item.slug}`}
+              data-dock-element={item.is_call_to_action ? "header-button" : undefined}
+              style={{ display: (item.is_call_to_action && settings.header_show_button === false) ? 'none' : undefined }}
               className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-accent ${item.is_call_to_action ? 'px-5 py-2 bg-accent text-white rounded-full shadow-lg shadow-accent/20' : 'text-white/70'}`}
             >
               <EditableText
@@ -111,7 +130,9 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
               <EditableText
                 tagName="p"
                 value={rawTagline}
+                data-dock-element="header-tagline"
                 className="text-xl md:text-3xl font-light text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed italic"
+                style={{ display: settings.header_show_tagline === false ? 'none' : 'block' }}
                 cmsBind={{ file: 'site_settings', index: 0, key: 'tagline' }}
               />
             )}

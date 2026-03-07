@@ -106,17 +106,18 @@
             }
 
             if (key === 'header_visible') {
-                const nav = document.querySelector('nav.fixed.top-0');
-                if (nav) nav.style.display = value ? 'flex' : 'none';
+                const els = document.querySelectorAll('[data-dock-element="header-nav"]');
+                els.forEach(el => el.style.display = value ? 'flex' : 'none');
                 return;
             }
 
             if (key.startsWith('header_show_')) {
                 const elementMap = {
-                    'header_show_logo': '.relative.w-12.h-12',
-                    'header_show_title': 'span.text-2xl.font-serif',
-                    'header_show_tagline': 'span.text-\\[10px\\]',
-                    'header_show_button': 'button, .bg-primary'
+                    'header_show_logo': '[data-dock-element="header-logo"]',
+                    'header_show_title': '[data-dock-element="header-title"]',
+                    'header_show_tagline': '[data-dock-element="header-tagline"]',
+                    'header_show_button': '[data-dock-element="header-button"]',
+                    'header_show_navbar': '[data-dock-element="header-navbar"]'
                 };
                 const selector = elementMap[key];
                 if (selector) {

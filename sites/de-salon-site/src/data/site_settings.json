@@ -1,6 +1,15 @@
 [
   {
-    "title": "De Salon",
-    "hero_image": "Screenshot2026-01-2206.59.57-1769104082479.png"
+    "title": "De Schaar",
+    "hero_image": "Screenshot2026-01-2206.59.57-1769104082479.png",
+    "header_show_logo": false,
+    "header_show_title": true,
+    "header_visible": true,
+    "header_transparent": "0.49",
+    "header_height": "68",
+    "content_top_offset": "0",
+    "header_show_tagline": false,
+    "header_show_button": false,
+    "header_show_navbar": true
   }
 ]

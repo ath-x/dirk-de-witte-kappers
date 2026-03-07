@@ -219,6 +219,7 @@ export default function DesignControls({ onColorChange, siteStructure }) {
         <button
           id="save-to-disk-btn"
           onClick={handleSaveToDisk}
+          title="Schrijft alle visuele wijzigingen (kleuren, layout-hoogtes en afstanden) definitief weg naar de server bestanden. Zonder dit gaan je wijzigingen verloren bij herladen."
           className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
         >
           <i className="fa-solid fa-floppy-disk"></i> SAVE CHANGES TO DISK
@@ -226,7 +227,7 @@ export default function DesignControls({ onColorChange, siteStructure }) {
       </div>
 
       <div className="space-y-8">
-        {/* GLOBAL STYLE */}
+        {/* GLOBAL STYLE DROPDOWN */}
         <div>
           <label className="text-[10px] font-bold uppercase text-slate-400 block mb-3">Global Theme Stijl</label>
           <select
@@ -249,40 +250,90 @@ export default function DesignControls({ onColorChange, siteStructure }) {
           </select>
         </div>
 
-        {/* GLOBAL THEME SETTINGS */}
+        {/* HEADER CONTROLS */}
         <div>
           <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-tighter mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
-            <i className="fa-solid fa-sliders text-accent"></i> Global Theme Settings
+            <i className="fa-solid fa-window-maximize text-blue-500"></i> Header Controls
+          </h4>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <label className="text-[9px] font-bold uppercase text-slate-400">Visible</label>
+              <input
+                type="checkbox"
+                checked={localColors.header_visible !== false}
+                onChange={(e) => { handlePreview('header_visible', e.target.checked); handleSave('header_visible', e.target.checked); }}
+                className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="text-[9px] font-bold uppercase text-slate-400 block">Header Transparency</label>
+                <span className="text-[9px] font-bold text-blue-500">{((parseFloat(localColors.header_transparent) || 0) * 100).toFixed(0)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={localColors.header_transparent || 0}
+                onInput={(e) => handlePreview('header_transparent', e.target.value)}
+                onChange={(e) => handleSave('header_transparent', e.target.value)}
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="text-[9px] font-bold uppercase text-slate-400 block">Header Height</label>
+                <span className="text-[9px] font-bold text-blue-500">{sliderValues.header_height || 80}px</span>
+              </div>
+              <input
+                type="range"
+                min="40"
+                max="150"
+                step="1"
+                value={sliderValues.header_height || 80}
+                onInput={(e) => handlePreview('header_height', e.target.value)}
+                onChange={(e) => handleSave('header_height', e.target.value)}
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              />
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="text-[9px] font-bold uppercase text-slate-400 block">Content Top Offset (Overlap Fix)</label>
+                <span className="text-[9px] font-bold text-blue-500">{sliderValues.content_top_offset || 0}px</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="200"
+                step="1"
+                value={sliderValues.content_top_offset || 0}
+                onInput={(e) => handlePreview('content_top_offset', e.target.value)}
+                onChange={(e) => handleSave('content_top_offset', e.target.value)}
+                className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 pt-2">
+              <Toggle label="Logo" settingsKey="header_show_logo" value={localColors.header_show_logo} onPreview={handlePreview} onSave={handleSave} />
+              <Toggle label="Title" settingsKey="header_show_title" value={localColors.header_show_title} onPreview={handlePreview} onSave={handleSave} />
+              <Toggle label="Tagline" settingsKey="header_show_tagline" value={localColors.header_show_tagline} onPreview={handlePreview} onSave={handleSave} />
+              <Toggle label="Button" settingsKey="header_show_button" value={localColors.header_show_button} onPreview={handlePreview} onSave={handleSave} />
+              <Toggle label="Navbar" settingsKey="header_show_navbar" value={localColors.header_show_navbar} onPreview={handlePreview} onSave={handleSave} />
+            </div>
+          </div>
+        </div>
+
+        {/* HERO CONTROLS */}
+        <div>
+          <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-tighter mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+            <i className="fa-solid fa-rocket text-accent"></i> Hero Controls
           </h4>
           <div className="space-y-4">
             <div>
-              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Corner Radius</label>
-              <select
-                value={localColors.global_radius}
-                onChange={(e) => { handlePreview('global_radius', e.target.value); handleSave('global_radius', e.target.value); }}
-                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
-              >
-                <option value="0px">Sharp (0px)</option>
-                <option value="0.5rem">Rounded (8px)</option>
-                <option value="1rem">Modern (16px)</option>
-                <option value="2rem">Pill (32px)</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Shadow Intensity</label>
-              <select
-                value={localColors.global_shadow}
-                onChange={(e) => { handlePreview('global_shadow', e.target.value); handleSave('global_shadow', e.target.value); }}
-                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
-              >
-                <option value="none">Flat</option>
-                <option value="soft">Soft</option>
-                <option value="strong">Deep</option>
-              </select>
-            </div>
-
-            {/* HERO OVERLAY SLIDER */}
-            <div className="pt-2 border-t border-slate-50 mt-2">
               <div className="flex justify-between items-center mb-1">
                 <label className="text-[9px] font-bold uppercase text-slate-400 block">Hero Overlay Opacity</label>
                 <span className="text-[9px] font-bold text-blue-500">{((parseFloat(localColors.hero_overlay_opacity) ?? 0.8) * 100).toFixed(0)}%</span>
@@ -299,116 +350,37 @@ export default function DesignControls({ onColorChange, siteStructure }) {
               />
             </div>
 
-            {/* HEADER SETTINGS */}
-            <div className="pt-4 border-t border-slate-50 mt-2 space-y-4">
-              <h5 className="text-[10px] font-black text-slate-500 uppercase tracking-tighter mb-2 flex items-center gap-2">
-                <i className="fa-solid fa-window-maximize text-blue-500"></i> Header Controls
-              </h5>
-
-              <div className="flex items-center justify-between">
-                <label className="text-[9px] font-bold uppercase text-slate-400">Visible</label>
-                <input
-                  type="checkbox"
-                  checked={localColors.header_visible !== false}
-                  onChange={(e) => { handlePreview('header_visible', e.target.checked); handleSave('header_visible', e.target.checked); }}
-                  className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <label className="text-[9px] font-bold uppercase text-slate-400 block">Header Transparency</label>
-                  <span className="text-[9px] font-bold text-blue-500">{((parseFloat(localColors.header_transparent) || 0) * 100).toFixed(0)}%</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={localColors.header_transparent || 0}
-                  onInput={(e) => handlePreview('header_transparent', e.target.value)}
-                  onChange={(e) => handleSave('header_transparent', e.target.value)}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <label className="text-[9px] font-bold uppercase text-slate-400 block">Header Height</label>
-                  <span className="text-[9px] font-bold text-blue-500">{sliderValues.header_height || 80}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="40"
-                  max="150"
-                  step="1"
-                  value={sliderValues.header_height || 80}
-                  onInput={(e) => handlePreview('header_height', e.target.value)}
-                  onChange={(e) => handleSave('header_height', e.target.value)}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-1">
-                  <label className="text-[9px] font-bold uppercase text-slate-400 block">Content Top Offset (Overlap Fix)</label>
-                  <span className="text-[9px] font-bold text-blue-500">{sliderValues.content_top_offset || 0}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="200"
-                  step="1"
-                  value={sliderValues.content_top_offset || 0}
-                  onInput={(e) => handlePreview('content_top_offset', e.target.value)}
-                  onChange={(e) => handleSave('content_top_offset', e.target.value)}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 pt-2">
-                <Toggle label="Logo" settingsKey="header_show_logo" value={localColors.header_show_logo} onPreview={handlePreview} onSave={handleSave} />
-                <Toggle label="Title" settingsKey="header_show_title" value={localColors.header_show_title} onPreview={handlePreview} onSave={handleSave} />
-                <Toggle label="Tagline" settingsKey="header_show_tagline" value={localColors.header_show_tagline} onPreview={handlePreview} onSave={handleSave} />
-                <Toggle label="Button" settingsKey="header_show_button" value={localColors.header_show_button} onPreview={handlePreview} onSave={handleSave} />
-                <Toggle label="Navbar" settingsKey="header_show_navbar" value={localColors.header_show_navbar} onPreview={handlePreview} onSave={handleSave} />
-              </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Hero Min Hoogte (bv. 85vh)</label>
+              <input
+                type="text"
+                value={localColors.hero_height || '85vh'}
+                onChange={(e) => { handlePreview('hero_height', e.target.value); handleSave('hero_height', e.target.value); }}
+                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
+              />
             </div>
-
-            {/* HERO DIMENSIONS */}
-            <div className="pt-4 border-t border-slate-50 mt-2 space-y-3">
-              <div>
-                <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Hero Min Hoogte (bv. 85vh)</label>
-                <input
-                  type="text"
-                  value={localColors.hero_height || '85vh'}
-                  onChange={(e) => { handlePreview('hero_height', e.target.value); handleSave('hero_height', e.target.value); }}
-                  className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Hero Max Hoogte (bv. 150vh)</label>
-                <input
-                  type="text"
-                  value={localColors.hero_max_height || '150vh'}
-                  onChange={(e) => { handlePreview('hero_max_height', e.target.value); handleSave('hero_max_height', e.target.value); }}
-                  className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Beeldverhouding (bv. 16/9 of 21/9)</label>
-                <input
-                  type="text"
-                  value={localColors.hero_aspect_ratio || '16/9'}
-                  onChange={(e) => { handlePreview('hero_aspect_ratio', e.target.value); handleSave('hero_aspect_ratio', e.target.value); }}
-                  className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
-                />
-              </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Hero Max Hoogte (bv. 150vh)</label>
+              <input
+                type="text"
+                value={localColors.hero_max_height || '150vh'}
+                onChange={(e) => { handlePreview('hero_max_height', e.target.value); handleSave('hero_max_height', e.target.value); }}
+                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Beeldverhouding (bv. 16/9 of 21/9)</label>
+              <input
+                type="text"
+                value={localColors.hero_aspect_ratio || '16/9'}
+                onChange={(e) => { handlePreview('hero_aspect_ratio', e.target.value); handleSave('hero_aspect_ratio', e.target.value); }}
+                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
+              />
             </div>
           </div>
         </div>
 
-        {/* THEME TOGGLE */}
+        {/* PREVIEW THEME TOGGLE */}
         <div>
           <label className="text-[10px] font-bold uppercase text-slate-400 block mb-3">Preview Mode</label>
           <div className="flex bg-slate-100 p-1 rounded-full">
@@ -523,6 +495,40 @@ export default function DesignControls({ onColorChange, siteStructure }) {
             </div>
           </div>
         )}
+
+        {/* GLOBAL THEME SETTINGS (RADIUS/SHADOW) - NOW AT THE BOTTOM */}
+        <div>
+          <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-tighter mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+            <i className="fa-solid fa-sliders text-blue-500"></i> Global Theme Settings
+          </h4>
+          <div className="space-y-4">
+            <div>
+              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Corner Radius</label>
+              <select
+                value={localColors.global_radius}
+                onChange={(e) => { handlePreview('global_radius', e.target.value); handleSave('global_radius', e.target.value); }}
+                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
+              >
+                <option value="0px">Sharp (0px)</option>
+                <option value="0.5rem">Rounded (8px)</option>
+                <option value="1rem">Modern (16px)</option>
+                <option value="2rem">Pill (32px)</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase text-slate-400 block mb-1">Shadow Intensity</label>
+              <select
+                value={localColors.global_shadow}
+                onChange={(e) => { handlePreview('global_shadow', e.target.value); handleSave('global_shadow', e.target.value); }}
+                className="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 focus:outline-none"
+              >
+                <option value="none">Flat</option>
+                <option value="soft">Soft</option>
+                <option value="strong">Deep</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <p className="mt-8 text-[9px] text-slate-400 italic leading-tight border-t border-slate-100 pt-4">
