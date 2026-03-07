@@ -1,0 +1,10 @@
+[
+  {
+    "basis": "grid",
+    "locaties": "z-pattern",
+    "teamleden": "grid",
+    "hero": "list",
+    "locatie": "z-pattern",
+    "team": "grid"
+  }
+]

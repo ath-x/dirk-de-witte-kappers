@@ -847,7 +847,7 @@ const DockFrame = () => {
                 href={siteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-[9px] text-white rounded font-bold flex flex-col items-center gap-0.5 transition-all min-w-[50px]"
+                className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-[9px] text-white rounded font-bold flex flex-col items-center justify-center gap-0.5 transition-all min-w-[51px]"
                 title="Open de lokale werkversie van deze website in een nieuw browsertabblad."
               >
                 <i className="fa-solid fa-laptop-code text-[12px]"></i>
@@ -859,7 +859,7 @@ const DockFrame = () => {
                   href={selectedSite.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-2 py-1 bg-green-600 hover:bg-green-500 text-[9px] text-white rounded font-bold flex flex-col items-center gap-0.5 transition-all min-w-[50px]"
+                  className="px-2 py-1 bg-green-600 hover:bg-green-500 text-[9px] text-white rounded font-bold flex flex-col items-center justify-center gap-0.5 transition-all min-w-[51px]"
                   title="Open de live productie website die voor iedereen op internet zichtbaar is."
                 >
                   <i className="fa-solid fa-globe text-[12px]"></i>

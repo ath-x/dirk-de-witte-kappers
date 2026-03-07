@@ -3,19 +3,11 @@
   "track": "docked",
   "data_structure": [
     {
-      "table_name": "basisgegevens",
+      "table_name": "footer",
       "columns": [
         {
           "name": "bedrijfsnaam",
           "description": "De officiële naam van de zaak ('De Salon')."
-        },
-        {
-          "name": "missie_kern",
-          "description": "De korte kern van de missie ('We care about your hair')."
-        },
-        {
-          "name": "missie_uitgebreid",
-          "description": "Het combineren van schoonheid, milieubewustheid en welzijn."
         },
         {
           "name": "telefoonnummer",
@@ -36,7 +28,24 @@
       ]
     },
     {
-      "table_name": "locaties",
+      "table_name": "missie",
+      "columns": [
+        {
+          "name": "missie_kern",
+          "description": "De korte kern van de missie ('We care about your hair')."
+        },
+        {
+          "name": "missie_uitgebreid",
+          "description": "Het combineren van schoonheid, milieubewustheid en welzijn."
+        },
+        {
+          "name": "afbeelding",
+          "description": "De sfeerfoto voor de missie sectie."
+        }
+      ]
+    },
+    {
+      "table_name": "locatie",
       "columns": [
         {
           "name": "locatie_id",
@@ -57,6 +66,10 @@
         {
           "name": "stad",
           "description": "Stad: Gent."
+        },
+        {
+          "name": "telefoonnummer",
+          "description": "Locatie-specifiek telefoonnummer."
         },
         {
           "name": "ligging_omschrijving",
@@ -90,7 +103,7 @@
       ]
     },
     {
-      "table_name": "teamleden",
+      "table_name": "team",
       "columns": [
         {
           "name": "teamlid_id",
@@ -136,7 +149,7 @@
       ]
     },
     {
-      "table_name": "diensten_tarieven",
+      "table_name": "tarieven",
       "columns": [
         {
           "name": "tarief_id",
@@ -198,7 +211,7 @@
       ]
     },
     {
-      "table_name": "aveda_informatie",
+      "table_name": "aveda",
       "columns": [
         {
           "name": "info_id",
@@ -265,6 +278,15 @@
       ]
     }
   ],
+  "mapping": {
+    "header": {
+      "logo": "site_logo_image",
+      "titel": "title",
+      "tagline": "tagline",
+      "knop-tekst": "header_button_text",
+      "knop-url": "header_button_url"
+    }
+  },
   "design_system": {
     "colors": {
       "primary": "#3C5A4D",
