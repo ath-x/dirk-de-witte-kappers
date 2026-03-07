@@ -224,14 +224,6 @@ export default function DesignControls({ onColorChange, siteStructure }) {
         <h3 className="text-sm font-black uppercase tracking-widest text-slate-400">Design Editor</h3>
         <p className="text-xs text-slate-500 mt-1 mb-4">Live design updates via Dock</p>
 
-        <button
-          id="save-to-disk-btn"
-          onClick={handleSaveToDisk}
-          title="Schrijft alle visuele wijzigingen (kleuren, layout-hoogtes en afstanden) definitief weg naar de server bestanden. Zonder dit gaan je wijzigingen verloren bij herladen."
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
-        >
-          <i className="fa-solid fa-floppy-disk"></i> SAVE CHANGES TO DISK
-        </button>
       </div>
 
       <div className="space-y-8">

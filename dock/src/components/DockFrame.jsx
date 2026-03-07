@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import SiteSelector from './SiteSelector';
 import DesignControls from './DesignControls';
 import VisualEditor from './VisualEditor';
-import PullModal from './PullModal';
-import SyncModal from './SyncModal';
 import HelpModal from './HelpModal';
 import SaveEverythingModal from './SaveEverythingModal';
 import SourceConflictModal from './SourceConflictModal';
@@ -15,8 +13,6 @@ const DockFrame = () => {
   const [currentPath, setCurrentPath] = useState('/');
   const [isConnected, setIsConnected] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-  const [showPullModal, setShowPullModal] = useState(false);
-  const [showSyncModal, setShowSyncModal] = useState(false);
   const [showSaveEverythingModal, setShowSaveEverythingModal] = useState(false);
   const [showConflictModal, setShowConflictModal] = useState(false);
   const [conflictReport, setConflictReport] = useState(null);
@@ -851,10 +847,11 @@ const DockFrame = () => {
                 href={siteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-[10px] text-white rounded font-bold flex items-center gap-1 transition-all"
+                className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-[9px] text-white rounded font-bold flex flex-col items-center gap-0.5 transition-all min-w-[50px]"
                 title="Open de lokale werkversie van deze website in een nieuw browsertabblad."
               >
-                <i className="fa-solid fa-laptop-code"></i> Preview
+                <i className="fa-solid fa-laptop-code text-[12px]"></i>
+                <span className="leading-none">Preview</span>
               </a>
 
               {selectedSite.liveUrl && (
@@ -862,10 +859,11 @@ const DockFrame = () => {
                   href={selectedSite.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 bg-green-600 hover:bg-green-500 text-[10px] text-white rounded font-bold flex items-center gap-1 transition-all"
+                  className="px-2 py-1 bg-green-600 hover:bg-green-500 text-[9px] text-white rounded font-bold flex flex-col items-center gap-0.5 transition-all min-w-[50px]"
                   title="Open de live productie website die voor iedereen op internet zichtbaar is."
                 >
-                  <i className="fa-solid fa-globe"></i> Live
+                  <i className="fa-solid fa-globe text-[12px]"></i>
+                  <span className="leading-none">Live</span>
                 </a>
               )}
 
@@ -974,12 +972,7 @@ const DockFrame = () => {
             />
           )}
 
-          {showPullModal && (
-            <PullModal
-              onConfirm={handlePullConfirm}
-              onCancel={() => setShowPullModal(false)}
-            />
-          )}
+
 
           {showSaveEverythingModal && (
             <SaveEverythingModal 
@@ -1002,15 +995,7 @@ const DockFrame = () => {
             />
           )}
 
-          {showSyncModal && (
-            <SyncModal
-              onConfirm={() => {
-                setShowSyncModal(false);
-                executeSaveStep('sheet');
-              }}
-              onCancel={() => setShowSyncModal(false)}
-            />
-          )}
+
         </main>
 
         {/* Right Sidebar - Section Tools */}
@@ -1026,45 +1011,7 @@ const DockFrame = () => {
           />
           
           <div className="p-4">
-            {/* Cloud Sync (v6.8) */}
-            <div className="mb-6 pb-6 border-b border-slate-100 space-y-2">
-            {selectedSite?.governance_mode === 'client-mode' ? (
-              <button
-                disabled
-                className="w-full py-3 bg-slate-300 text-slate-500 font-bold rounded-xl shadow-inner cursor-not-allowed flex items-center justify-center gap-2"
-                title="Sincronisatie is geblokkeerd omdat de klant de inhoud beheert via Google Sheets. Pas de data direct in de Sheet aan."
-              >
-                <i className="fa-solid fa-lock"></i>
-                Push Locked (Client Mode)
-              </button>
-            ) : (
-              <button
-                id="cloud-sync-btn"
-                onClick={syncToSheets}
-                className="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-200 transition-all flex items-center justify-center gap-2"
-                title="Sla je lokale Dock-wijzigingen op in de cloud (Google Sheets). Hiermee worden je aanpassingen definitief en gedeeld."
-              >
-                <i className="fa-solid fa-cloud-arrow-up"></i>
-                Sync to Google Sheets
-              </button>
-            )}
-
-            <button
-              id="cloud-pull-btn"
-              onClick={pullFromSheets}
-              className="w-full py-2 bg-white hover:bg-slate-50 text-slate-600 font-bold rounded-xl border border-slate-200 shadow-sm transition-all flex items-center justify-center gap-2 text-xs"
-              title="Haal de nieuwste gegevens op uit Google Sheets. Let op: dit overschrijft je huidige lokale Dock-wijzigingen!"
-            >
-              <i className="fa-solid fa-cloud-arrow-down text-blue-500"></i>
-              Pull from Google Sheets
-            </button>
-
-            <p className="text-[10px] text-slate-400 mt-2 text-center italic">
-              Sync stuurt Dock-wijzigingen naar de cloud. Pull haalt cloud-updates op.
-            </p>
-          </div>
-
-          {/* Page Switcher (v6.6 MPA) */}
+            {/* Page Switcher (v6.6 MPA) */}
           {pages.length > 0 && (
             <div className="mb-8 pb-6 border-b border-slate-100">
               <h3 className="font-bold text-lg text-slate-800 mb-4 flex items-center gap-2" title="Lijst van alle beschikbare pagina's op deze website. Klik op een pagina om deze te bekijken en te bewerken.">

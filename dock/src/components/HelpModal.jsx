@@ -59,12 +59,11 @@ const HelpModal = ({ onClose }) => {
                 <p><strong className="text-slate-300">⟳</strong> knop (header). Kijk of alles klopt.</p>
               </div>
             </div>
-
             <div className="flex gap-3 items-start">
               <span className="text-slate-500 font-mono text-lg leading-none mt-0.5">2</span>
               <div>
                 <p className="text-white font-bold">Sync to Google Sheets</p>
-                <p>Groene knop (sidebar). Stuurt lokale data naar de Sheet. Wacht op ✅.</p>
+                <p>Onderdeel van <strong className="text-white">Save & Publish</strong>. Stuurt lokale data naar de Sheet.</p>
                 <p className="text-slate-400 mt-0.5">Let op: overschrijft de huidige Sheet-inhoud.</p>
               </div>
             </div>
@@ -93,8 +92,7 @@ const HelpModal = ({ onClose }) => {
           <div>
             <p className="text-white font-bold mb-2">Vermijd</p>
             <div className="space-y-1.5 text-[11px]">
-              <p>• <strong className="text-white">Pushen zonder Sync</strong> — Sheets raakt uit sync. Altijd eerst Sync.</p>
-              <p>• <strong className="text-white">Pull na lokale wijzigingen</strong> — overschrijft je werk. Eerst Sync.</p>
+              <p>• <strong className="text-white">Pushen zonder Sync</strong> — Sheets raakt uit sync. Kies beide in de modal.</p>
               <p>• <strong className="text-white">Vergeten te pushen</strong> — wijzigingen bestaan alleen lokaal.</p>
               <p>• <strong className="text-white">Browser sluiten tijdens Sync/Push</strong> — wacht op bevestiging.</p>
             </div>
