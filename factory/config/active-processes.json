@@ -1,4 +1,11 @@
 {
+  "5000": {
+    "pid": 17956,
+    "id": "de-schaar-site",
+    "type": "preview",
+    "startTime": "2026-03-07T10:46:40.261Z",
+    "logFile": "/home/kareltestspecial/0-IT/2-Productie/athena/athena-x/factory/output/logs/de-schaar-site-preview.log"
+  },
   "5002": {
     "pid": 30051,
     "id": "athena-dock",
@@ -12,12 +19,5 @@
     "type": "editor",
     "startTime": "2026-03-07T10:02:02.232Z",
     "logFile": "/home/kareltestspecial/0-IT/2-Productie/athena/athena-x/factory/output/logs/media-mapper-editor.log"
-  },
-  "6102": {
-    "pid": 29592,
-    "id": "de-salon-site",
-    "type": "preview",
-    "startTime": "2026-03-07T10:05:47.734Z",
-    "logFile": "/home/kareltestspecial/0-IT/2-Productie/athena/athena-x/factory/output/logs/de-salon-site-preview.log"
   }
 }

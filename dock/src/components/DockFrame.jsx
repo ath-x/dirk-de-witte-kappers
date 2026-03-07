@@ -310,6 +310,20 @@ const DockFrame = () => {
     saveSectionMove(section, direction);
   };
 
+  const toggleSectionVisibility = (sectionId) => {
+    console.log(`👁️ Toggling visibility for: ${sectionId}`);
+    const sectionIndex = siteStructure?.data?.section_settings?.findIndex(s => s.id === sectionId);
+    if (sectionIndex === -1 || sectionIndex === undefined) {
+      console.warn(`⚠️ Cannot find section index for ${sectionId} in section_settings`);
+      return;
+    }
+    const currentVisible = siteStructure.data.section_settings[sectionIndex].visible !== false;
+    saveData('section_settings', sectionIndex, 'visible', !currentVisible);
+    
+    // Refresh to show/hide in iframe
+    setTimeout(() => forceRefresh(), 500);
+  };
+
   const saveSectionMove = async (key, direction) => {
     try {
       const url = getSiteApiUrl();
@@ -888,7 +902,19 @@ const DockFrame = () => {
                      section === 'header_settings' ? 'Header Settings' : 
                      section === 'site_settings' ? 'Site Settings' : section}
                   </span>
-                  <div className="flex gap-1">
+                  <div className="flex gap-1 items-center">
+                    <button
+                      onClick={() => toggleSectionVisibility(section)}
+                      className={`p-1 rounded mr-1 ${siteStructure?.data?.section_settings?.find(s => s.id === section)?.visible === false ? 'text-slate-300 bg-slate-100 hover:bg-slate-200' : 'text-blue-500 bg-blue-50 hover:bg-blue-100'}`}
+                      title={siteStructure?.data?.section_settings?.find(s => s.id === section)?.visible === false ? "Sectie is verborgen op de site. Klik om te tonen." : "Sectie is zichtbaar op de site. Klik om te verbergen."}
+                    >
+                      {siteStructure?.data?.section_settings?.find(s => s.id === section)?.visible === false ? (
+                        <i className="fa-solid fa-eye-slash text-[10px]"></i>
+                      ) : (
+                        <i className="fa-solid fa-eye text-[10px]"></i>
+                      )}
+                    </button>
+                    <div className="flex gap-1">
                     <button
                       onClick={() => moveSection(section, 'up')}
                       className="p-1 hover:bg-slate-200 text-slate-500 rounded"
@@ -905,6 +931,7 @@ const DockFrame = () => {
                     </button>
                   </div>
                 </div>
+              </div>
 
                 <div className="space-y-4">
                   {/* Layout Selector */}
