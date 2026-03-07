@@ -16,43 +16,57 @@
   {
     "id": "stylist_gradatie",
     "title": "Stylist gradatie",
-    "subtitle": ""
+    "subtitle": "",
+    "visible": "",
+    "padding": ""
   },
   {
     "id": "teamleden",
     "title": "Team",
-    "subtitle": "Overzicht van teamleden"
+    "subtitle": "Overzicht van teamleden",
+    "visible": "",
+    "padding": ""
   },
   {
     "id": "diensten_hoofdgroepen",
     "title": "diensten hoofdgroepen",
     "subtitle": "Overzicht van diensten_hoofdgroepen",
-    "visible": false
+    "visible": false,
+    "padding": ""
   },
   {
     "id": "diensten_tarieven",
     "title": "Onze Tarieven",
-    "subtitle": "Kwaliteit en vakmanschap voor een eerlijke prijs"
+    "subtitle": "Kwaliteit en vakmanschap voor een eerlijke prijs",
+    "visible": "",
+    "padding": ""
   },
   {
     "id": "testimonials",
     "title": "Testimonials",
-    "subtitle": "Overzicht van testimonials"
+    "subtitle": "Overzicht van testimonials",
+    "visible": "",
+    "padding": ""
   },
   {
     "id": "aveda_informatie",
     "title": "Aveda informatie",
-    "subtitle": ""
+    "subtitle": "",
+    "visible": "",
+    "padding": ""
   },
   {
     "id": "social_media",
     "title": "social media",
     "subtitle": "Overzicht van social_media",
-    "visible": false
+    "visible": false,
+    "padding": ""
   },
   {
     "id": "paginastructuur",
     "title": "paginastructuur",
-    "subtitle": "Overzicht van paginastructuur"
+    "subtitle": "Overzicht van paginastructuur",
+    "visible": "",
+    "padding": ""
   }
 ]
