@@ -879,7 +879,9 @@ const DockFrame = () => {
             siteStructure.sections.map(section => (
               <div key={section} className="mb-6 p-4 bg-slate-50 border border-slate-200 rounded-xl shadow-sm" title={`Beheersectie voor de '${section}' op je pagina.`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-slate-800 capitalize truncate" title={`Sectie: ${section}`}>{section}</span>
+                  <span className="text-sm font-bold text-slate-800 capitalize truncate" title={`Sectie: ${section}`}>
+                    {section === 'site_settings' ? 'Hero / Header Settings' : section}
+                  </span>
                   <div className="flex gap-1">
                     <button
                       onClick={() => moveSection(section, 'up')}

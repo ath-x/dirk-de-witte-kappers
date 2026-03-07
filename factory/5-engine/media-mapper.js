@@ -183,7 +183,6 @@ app.get('/api/data', (req, res) => {
     // 2. Haal data op (MPA-compatible via recursief zoeken)
     let tables = {};
     const EXCLUDED_TABLES = [
-        'site_settings', 
         'style_bindings', 
         '_system', 
         '_links_config', 

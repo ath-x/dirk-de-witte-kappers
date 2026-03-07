@@ -97,7 +97,11 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
       </nav>
 
       {/* Main Header / Hero Section */}
-      <header id="home" className="relative min-h-[85vh] flex flex-col overflow-hidden bg-primary text-white pt-20">
+      <header 
+        id="home" 
+        data-dock-section="site_settings"
+        className="relative min-h-[85vh] flex flex-col overflow-hidden bg-primary text-white pt-20"
+      >
         {/* Background Media */}
         <div className="absolute inset-0">
           <EditableMedia
@@ -106,11 +110,10 @@ function Header({ primaryTable, tableName, siteSettings = {}, navData = [] }) {
             className="w-full h-full"
             cmsBind={{ file: 'site_settings', index: 0, key: 'hero_image' }}
             dataItem={settings}
-            data-dock-bind={JSON.stringify({ file: 'site_settings', index: 0, key: 'hero_image' })}
           />
           {/* Dynamic Gradient Overlay */}
           <div
-            className="absolute inset-0 z-10"
+            className="absolute inset-0 z-10 pointer-events-none"
             style={{
               background: `linear-gradient(to bottom, var(--hero-overlay-start, rgba(0,0,0,0.8)), var(--hero-overlay-end, rgba(0,0,0,0.3)))`
             }}
