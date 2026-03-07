@@ -1,15 +1,18 @@
 {
   "sections": {
-    "basis": {
+    "footer": {
       "visible_fields": [],
-      "hidden_fields": [
-        "missie_kern",
-        "bedrijfsnaam",
-        "copyright_tekst",
-        "afbeelding"
-      ]
+      "hidden_fields": []
     },
-    "locaties": {
+    "missie": {
+      "visible_fields": [
+        "missie_kern",
+        "missie_uitgebreid",
+        "afbeelding"
+      ],
+      "hidden_fields": []
+    },
+    "locatie": {
       "visible_fields": [
         "naam_locatie",
         "straat_nummer",
@@ -19,9 +22,7 @@
         "ligging_omschrijving",
         "parking_info"
       ],
-      "hidden_fields": [
-        "telefoonnummer"
-      ],
+      "hidden_fields": [],
       "inline_fields": [
         "stad",
         "postcode",
@@ -36,17 +37,13 @@
       ],
       "hidden_fields": []
     },
-    "header_settings": {
+    "header": {
       "visible_fields": [
-        "header_show_title",
-        "header_show_logo",
-        "header_visible",
-        "header_transparent",
-        "header_height",
-        "content_top_offset",
-        "header_show_tagline",
-        "header_show_button",
-        "header_show_navbar"
+        "logo",
+        "titel",
+        "tagline",
+        "knop-tekst",
+        "knop-url"
       ],
       "hidden_fields": []
     },
@@ -55,6 +52,23 @@
       "hidden_fields": [
         "min_ervaring_jaren"
       ]
+    },
+    "team": {
+      "visible_fields": [
+        "naam",
+        "functie",
+        "foto_url",
+        "bio_tekst"
+      ],
+      "hidden_fields": []
+    },
+    "tarieven": {
+      "visible_fields": [
+        "dienst_naam",
+        "basis_prijs",
+        "prijs_indicatie"
+      ],
+      "hidden_fields": []
     }
   }
 }
