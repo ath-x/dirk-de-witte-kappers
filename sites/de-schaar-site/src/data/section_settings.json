@@ -29,21 +29,7 @@
   },
   {
     "id": "locatie",
-    "title": {
-      "text": "Onze Locatie",
-      "color": "#7c1874",
-      "fontSize": "",
-      "fontWeight": "normal",
-      "fontStyle": "normal",
-      "textAlign": "left",
-      "fontFamily": "",
-      "shadowX": 0,
-      "shadowY": 0,
-      "shadowBlur": 0,
-      "shadowColor": "rgba(0,0,0,0.5)",
-      "paddingTop": 0,
-      "paddingBottom": 0
-    },
+    "title": "Onze Locatie",
     "subtitle": "Breng ons een bezoek",
     "visible": true,
     "padding": 40

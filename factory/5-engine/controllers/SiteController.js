@@ -155,26 +155,37 @@ export class SiteController {
     }
 
     /**
-     * Get theme and visual style information for a site
+     * Get the full structure and data of a site for the Dock
      */
-    getThemeInfo(id) {
+    getSiteStructure(id) {
         const siteDir = path.join(this.sitesDir, id);
-        if (!fs.existsSync(siteDir)) throw new Error('Site niet gevonden');
+        const dataDir = path.join(siteDir, 'src/data');
+        const data = {};
 
-        const themesDir = path.join(this.configManager.get('paths.factory'), '2-templates/boilerplate/docked/css');
-        const themes = fs.existsSync(themesDir)
-            ? fs.readdirSync(themesDir).filter(f => f.endsWith('.css')).map(f => f.replace('.css', ''))
-            : [];
-
-        let currentTheme = null;
-        const indexCss = path.join(siteDir, 'src/index.css');
-        if (fs.existsSync(indexCss)) {
-            const content = fs.readFileSync(indexCss, 'utf8');
-            const match = content.match(/@import\s+["']\.\/css\/([a-z0-9-]+)\.css["']/);
-            if (match) currentTheme = match[1];
+        if (fs.existsSync(dataDir)) {
+            const files = fs.readdirSync(dataDir).filter(f => f.endsWith('.json'));
+            files.forEach(file => {
+                const name = file.replace('.json', '');
+                try {
+                    const content = JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8'));
+                    data[name] = content;
+                } catch (e) {
+                    console.error(`Error loading ${file}:`, e.message);
+                }
+            });
         }
-        
-        return { themes, currentTheme };
+
+        // Return combined structure
+        return {
+            id,
+            data,
+            url: this.getSiteUrl(id)
+        };
+    }
+
+    getSiteUrl(id) {
+        const port = this.getSitePort(id);
+        return `http://localhost:${port}/${id}/`;
     }
 
     /**

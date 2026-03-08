@@ -35,9 +35,10 @@ async function init() {
         
         // Alleen laden als het nog niet geladen is als systeembestand
         if (!data[name]) {
-            data[name] = Array.isArray(content) ? content : [content];
+            // Forceer GEEN array voor config bestanden
+            const isConfig = name.includes('settings') || name.includes('config') || name === 'hero';
+            data[name] = (Array.isArray(content) || isConfig) ? content : [content];
         } else if (Array.isArray(data[name]) && data[name].length === 0 && content) {
-            // Als het al als lege lijst staat (door een eerdere toekenning), vul het aan
             data[name] = Array.isArray(content) ? content : [content];
         }
     });

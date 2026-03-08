@@ -179,8 +179,9 @@ app.post('/api/projects/remote-delete', async (req, res) => {
 });
 
 // --- SITE API ---
-app.get('/api/sites/all-deployments', (req, res) => res.json(siteCtrl.getAllDeployments()));
 app.get('/api/sites', (req, res) => res.json(siteCtrl.list()));
+app.get('/api/sites/:id/structure', (req, res) => res.json(siteCtrl.getSiteStructure(req.params.id)));
+app.get('/api/sites/all-deployments', (req, res) => res.json(siteCtrl.getAllDeployments()));
 app.get('/api/styles', (req, res) => res.json(siteCtrl.getStyles()));
 app.get('/api/layouts/:track/:type', (req, res) => res.json(siteCtrl.getLayouts(`${req.params.track}/${req.params.type}`)));
 app.post('/api/create', async (req, res) => res.json(await siteCtrl.create(req.body)));

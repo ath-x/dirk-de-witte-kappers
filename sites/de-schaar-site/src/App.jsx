@@ -30,10 +30,15 @@ const App = ({ data: initialData }) => {
           const newData = { ...prev };
           const targetFile = file || (key.startsWith('header_') ? 'header_settings' : 'site_settings');
           
+          // Ensure target file entry exists in state
+          if (!newData[targetFile]) {
+            newData[targetFile] = (index !== undefined) ? [] : {};
+          }
+
           if (Array.isArray(newData[targetFile])) {
             newData[targetFile] = [...newData[targetFile]];
             newData[targetFile][index || 0] = { ...newData[targetFile][index || 0], [key]: value };
-          } else if (newData[targetFile]) {
+          } else {
             newData[targetFile] = { ...newData[targetFile], [key]: value };
           }
           return newData;
