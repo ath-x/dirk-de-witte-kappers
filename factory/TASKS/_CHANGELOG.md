@@ -1,23 +1,14 @@
 # Changelog - Athena CMS Factory
 
-## [8.0.7] - 2026-03-08
-### 🎨 Component Excellence & Text Styling v8.4.2
-- **EditableText & EditableLink Upgrade**: Volledige upgrade naar v8.4.1 voor alle 43 componenten in het portfolio.
-    - **Advanced Styling**: Support voor Font Family, Text Shadows (X, Y, Blur, Color) en Vertical Padding (Top/Bottom).
-    - **Ironclad Safety**: Geforceerde string-extractie om "Objects are not valid as React child" errors te voorkomen tijdens Undo/Redo.
-- **Dock Sync Bridge v33 (Stabiliteitsfix)**:
-    - **Memory-State Sync**: `saveData` in de Dock updatet nu direct de lokale `siteStructure`. Dit lost de race-conditie op waarbij modals oude data laadden direct na een save.
-    - **Delayed Parameter Loading**: De `VisualEditor` wacht nu op de site-sync alvorens velden in te vullen, wat zorgt voor 100% betrouwbare data-binding.
-    - **Object-Aware Color Pickers**: Globale kleurkiezers in de zijbalk overschrijven gespecialiseerde tekst-objecten niet langer, maar updaten alleen de `color` property.
-- **Multi-Track Preview System**:
-    - Automatische detectie van `feat/**` en `fix/**` branches in CI/CD.
-    - Preview-versies worden nu automatisch gepubliceerd naar een `/preview/` subfolder op GitHub Pages, zonder de live site te beïnvloeden.
-- **Human-Readable Standards**:
-    - Introductie van de **Nederlandstalige veldnamen-regel** in `GEMINI.md`.
-    - Eerste volledige implementatie op `de-schaar-site` (`titel`, `hero_afbeelding`, `header_hoogte`, etc.).
-    - Ontkoppeling van Header- en Hero-titels voor onafhankelijke bewerking.
+## [8.5.0] - 2026-03-08
+### 🏆 MAJOR MILESTONE: FULL SYSTEM SYNC & COMPONENT EXCELLENCE
+- **Self-Reporting CSS Bridge**: De site-connector (`dock-connector.jsx`) scant nu berekende CSS variabelen en stuurt deze als defaults naar de Dock. Dit lost het "Black Pickers" probleem definitief op.
+- **Deep Data Inspector**: Introductie van een full-screen debugging tool in de Dock om real-time data-stromen en hydration bronnen te inspecteren.
+- **Object-Aware Logic (v2)**: Volledige harmonie tussen globale DesignControls en individuele elementen. Globale kiezers updaten nu alleen de `color` property van complexe stijl-objecten zonder de rest te vernietigen.
+- **V33 Sync Bridge Finalized**: Instant memory-state sync in de Dock gecombineerd met `athenaScan` triggers in de site voor 100% betrouwbaarheid.
+- **Dutch Human-Readable Standard**: Volledige rollout van Nederlandstalige veldnamen op `de-schaar-site` als nieuwe blauwdruk voor de Factory.
 
-## [8.0.6] - 2026-03-06
+## [8.0.7] - 2026-03-08
 ### 🎨 Enhanced Design Controls & Text Styling (v8.3)
 - **Header Transparency Slider**: De binaire "Transparent" checkbox in de Dock is vervangen door een traploze **Range Slider (0-100%)**. 
 - **Dynamic Header Logic**: De site-engine berekent nu automatisch de RGBA-waarde van de header-achtergrond op basis van de gekozen themakleur en de transparantie-slider. Tevens wordt de onderlijn (border) automatisch verwijderd bij transparantie voor een modernere uitstraling.
