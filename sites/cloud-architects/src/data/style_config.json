@@ -12,8 +12,8 @@
   "--color-title": "#1e293b",
   "--font-sans": "'Inter', sans-serif",
   "--font-serif": "'Roboto Mono', monospace",
-  "--radius-custom": "0.5rem",
-  "--shadow-main": "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+  "--radius-custom": "2.5rem",
+  "--shadow-main": "0 10px 30px -5px rgba(0, 0, 0, 0.1)",
   "--color-primary-rgb": "30 41 59",
   "--color-secondary-rgb": "100 116 139",
   "--color-accent-rgb": "59 130 246",
@@ -21,5 +21,7 @@
   "--color-surface-rgb": "248 250 252",
   "--color-heading-rgb": "30 41 59",
   "--color-title-rgb": "30 41 59",
-  "--color-button-bg-rgb": "59 130 246"
+  "--color-button-bg-rgb": "59 130 246",
+  "--hero-overlay-start": "rgba(0,0,0,0.45)",
+  "--hero-overlay-end": "rgba(0,0,0,0.25)"
 }

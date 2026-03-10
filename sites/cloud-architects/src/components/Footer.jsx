@@ -2,16 +2,17 @@ import React from 'react';
 import EditableText from './EditableText';
 import EditableLink from './EditableLink';
 
-export default function Footer({ data }) {
-  const settingsSource = data?.site_settings || {};
-  const settings = Array.isArray(settingsSource) ? (settingsSource[0] || {}) : settingsSource;
-  const contactInfo = data?.contact?.[0] || {};
+export default function Footer({ data = {} }) {
+  // Debugging logica (interne fallback)
+  const footerSource = data.footer || [];
+  const footerData = Array.isArray(footerSource) ? (footerSource[0] || {}) : footerSource;
   
-  const naam = settings.site_name || 'cloud-architects';
-  const email = contactInfo.email || settings.email || '';
-  const locatie = contactInfo.location || '';
-  const btw = contactInfo.btw_nummer || contactInfo.btw || '';
-  const linkedin = contactInfo.linkedin_url || contactInfo.linkedin || '';
+  const naam = footerData.bedrijfsnaam || 'Cloud Architects';
+  const tagline = footerData.tagline || 'Your Architecture Partner';
+  const email = footerData.email || 'hello@cloud-architects.be';
+  const adres = footerData.adres || 'Tech Plaza 1, Gent';
+  const btw = footerData.btw || 'BE 0123.456.789';
+  const linkedin = footerData.linkedin || 'https://linkedin.com/company/cloud-architects';
 
   return (
     <footer className="py-24 bg-slate-900 text-slate-400 border-t border-slate-800 relative overflow-hidden">
@@ -23,44 +24,36 @@ export default function Footer({ data }) {
           {/* Brand Identity */}
           <div className="space-y-6">
             <h3 className="text-3xl font-serif font-bold text-white">
-              <EditableText value={naam} cmsBind={{file: 'site_settings', index: 0, key: 'site_name'}} />
+              <EditableText value={naam} cmsBind={{file: 'footer', index: 0, key: 'bedrijfsnaam'}} />
             </h3>
-            {settings.tagline && (
-              <p className="text-lg leading-relaxed font-light">
-                <EditableText value={settings.tagline} cmsBind={{file: 'site_settings', index: 0, key: 'tagline'}} />
-              </p>
-            )}
+            <p className="text-lg leading-relaxed font-light">
+              <EditableText value={tagline} cmsBind={{file: 'footer', index: 0, key: 'tagline'}} />
+            </p>
           </div>
 
           {/* Contact Details */}
           <div className="space-y-6">
             <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-accent">Contact</h4>
             <ul className="space-y-4">
-              {email && (
-                <li className="flex items-center gap-4">
-                  <i className="fa-solid fa-envelope text-accent w-5"></i>
-                  <EditableText value={email} cmsBind={{file: 'contact', index: 0, key: 'email'}} />
-                </li>
-              )}
-              {locatie && (
-                <li className="flex items-center gap-4">
-                  <i className="fa-solid fa-location-dot text-accent w-5"></i>
-                  <EditableText value={locatie} cmsBind={{file: 'contact', index: 0, key: 'location'}} />
-                </li>
-              )}
-              {linkedin && (
-                <li className="flex items-center gap-4">
-                  <i className="fa-brands fa-linkedin text-accent w-5"></i>
-                  <EditableLink 
-                    label={contactInfo.linkedin_label || "LinkedIn Profile"} 
-                    url={contactInfo.linkedin_url_url || linkedin} 
-                    table="contact" 
-                    field="linkedin_url" 
-                    id={0} 
-                    className="hover:text-white transition-colors"
-                  />
-                </li>
-              )}
+              <li className="flex items-center gap-4">
+                <i className="fa-solid fa-envelope text-accent w-5"></i>
+                <EditableText value={email} cmsBind={{file: 'footer', index: 0, key: 'email'}} />
+              </li>
+              <li className="flex items-center gap-4">
+                <i className="fa-solid fa-location-dot text-accent w-5"></i>
+                <EditableText value={adres} cmsBind={{file: 'footer', index: 0, key: 'adres'}} />
+              </li>
+              <li className="flex items-center gap-4">
+                <i className="fa-brands fa-linkedin text-accent w-5"></i>
+                <EditableLink 
+                  label="LinkedIn Profile" 
+                  url={linkedin} 
+                  table="footer" 
+                  field="linkedin" 
+                  id={0} 
+                  className="hover:text-white transition-colors"
+                />
+              </li>
             </ul>
           </div>
 
@@ -68,14 +61,12 @@ export default function Footer({ data }) {
           <div className="space-y-6">
             <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-accent">Bedrijfsgegevens</h4>
             <div className="space-y-4">
-              {btw && (
-                <p className="flex items-center gap-2">
-                  <span className="text-slate-500">BTW:</span> 
-                  <EditableText value={btw} cmsBind={{file: 'contact', index: 0, key: 'btw_nummer'}} />
-                </p>
-              )}
-              <p className="text-sm font-light leading-relaxed">
-                <EditableText value={settings.footer_text || 'Professionele website geleverd door Athena CMS Factory.'} cmsBind={{file: 'site_settings', index: 0, key: 'footer_text'}} />
+              <p className="flex items-center gap-2">
+                <span className="text-slate-500">BTW:</span> 
+                <EditableText value={btw} cmsBind={{file: 'footer', index: 0, key: 'btw'}} />
+              </p>
+              <p className="text-sm font-light leading-relaxed italic opacity-60">
+                Professionele website geleverd door Athena CMS Factory.
               </p>
             </div>
           </div>

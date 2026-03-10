@@ -8,30 +8,27 @@ import StyleInjector from './components/StyleInjector';
 
 import { DisplayConfigProvider } from './components/DisplayConfigContext';
 
-const App = ({ data }) => {
-  const primaryTable = Object.keys(data)[0];
+const App = ({ data = {} }) => {
+  // Zorg dat data altijd een object is
+  const safeData = data || {};
 
-  const content = (
-    <DisplayConfigProvider data={data}>
+  return (
+    <DisplayConfigProvider data={safeData}>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text)] transition-colors duration-500">
-          <StyleInjector siteSettings={data['site_settings']} />
+          <StyleInjector siteSettings={safeData.header?.[0] || {}} />
           
-          <Header primaryTable={data[primaryTable]} tableName={primaryTable} siteSettings={data['site_settings']} />
+          <Header data={safeData} />
           
           <main style={{ paddingTop: 'var(--content-top-offset, 0px)' }}>
-            <Section data={data} />
+            <Section data={safeData} />
           </main>
 
-          <Footer data={data} />
+          <Footer data={safeData} />
         </div>
       </Router>
     </DisplayConfigProvider>
   );
-
-  
-
-    return content;
 };
 
 export default App;
