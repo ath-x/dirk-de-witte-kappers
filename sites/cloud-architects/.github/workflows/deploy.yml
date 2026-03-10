@@ -37,7 +37,7 @@ jobs:
           if [ "$BRANCH_NAME" = "main" ]; then
             pnpm build
           else
-            # MULTIVERSE: Build for branch-specific subfolder
+            # MULTIVERSE: Build for branch-specific subfolder (Preview Slot)
             REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
             export VITE_BASE_URL="/$REPO_NAME/$BRANCH_NAME/"
             pnpm build --base="/$REPO_NAME/$BRANCH_NAME/"

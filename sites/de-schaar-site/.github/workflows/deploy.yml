@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -33,13 +33,14 @@ jobs:
 
       - name: Build project
         run: |
-          if [ "${{ github.ref_name }}" = "main" ]; then
+          BRANCH_NAME="${{ github.ref_name }}"
+          if [ "$BRANCH_NAME" = "main" ]; then
             pnpm build
           else
-            # Build for preview subfolder
+            # MULTIVERSE: Build for branch-specific subfolder (Preview Slot)
             REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-            export VITE_BASE_URL="/$REPO_NAME/preview/"
-            pnpm build --base="/$REPO_NAME/preview/"
+            export VITE_BASE_URL="/$REPO_NAME/$BRANCH_NAME/"
+            pnpm build --base="/$REPO_NAME/$BRANCH_NAME/"
           fi
 
       - name: Deploy to GitHub Pages (Main)
@@ -48,13 +49,13 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          keep_files: true # Cruciaal om de preview map niet te verwijderen
+          keep_files: true
 
-      - name: Deploy to GitHub Pages (Preview Slot)
+      - name: Deploy to GitHub Pages (Branch Slot)
         if: github.ref_name != 'main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          destination_dir: preview
+          destination_dir: ${{ github.ref_name }}
           keep_files: true
