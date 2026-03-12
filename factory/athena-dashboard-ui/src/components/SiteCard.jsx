@@ -55,6 +55,11 @@ export default function SiteCard({ site, activeServer, onRefresh, onSEO, onSheet
           </div>
           <p className="text-[10px] text-slate-500 font-medium uppercase flex items-center gap-2">
              <span>{status === 'live' ? 'Live on Pages' : 'Local Project'}</span>
+             {site.deployData?.liveUrl && (
+               <a href={site.deployData.liveUrl} target="_blank" rel="noopener noreferrer" className="text-athena-accent hover:text-white transition-colors" title="Open Live Site">
+                 <span className="text-[10px]">↗️</span>
+               </a>
+             )}
              <span className="font-mono bg-black/20 px-1 rounded text-slate-400">:{activeServer?.port || site.port || 5000}</span>
           </p>
         </div>
