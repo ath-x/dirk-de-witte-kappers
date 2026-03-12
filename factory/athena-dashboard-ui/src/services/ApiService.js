@@ -23,6 +23,11 @@ export const ApiService = {
   getSiteStatus: (name) => fetch(`${API_BASE}/sites/${name}/status`).then(res => res.json()),
   startSiteDev: (id) => fetch(`${API_BASE}/sites/${id}/preview`, { method: 'POST' }).then(res => res.json()),
   stopSiteServer: (port) => fetch(`${API_BASE}/servers/kill/${port}`, { method: 'POST' }).then(res => res.json()),
+  deploy: (projectName, commitMsg) => fetch(`${API_BASE}/deploy`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ projectName, commitMsg })
+  }).then(res => res.json()),
   
   // Site Actions
   getThemeInfo: (id) => fetch(`${API_BASE}/sites/${id}/theme-info`).then(res => res.json()),
@@ -61,6 +66,14 @@ export const ApiService = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ script, args })
+  }).then(res => res.json()),
+
+  startDock: () => fetch(`${API_BASE}/start-dock`, { method: 'POST' }).then(res => res.json()),
+  startLayoutServer: () => fetch(`${API_BASE}/start-layout-server`, { method: 'POST' }).then(res => res.json()),
+  startMediaServer: (siteName) => fetch(`${API_BASE}/start-media-server`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ siteName })
   }).then(res => res.json()),
 
   // Storage

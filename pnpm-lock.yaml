@@ -299,6 +299,43 @@ importers:
         specifier: ^6.0.0
         version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
 
+  sites/athena-promo:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      lucide-react:
+        specifier: ^0.300.0
+        version: 0.300.0(react@19.2.4)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+      react-router-dom:
+        specifier: ^6.20.0
+        version: 6.30.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.3.1
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
   sites/chocolade-shop:
     dependencies:
       '@heroicons/react':
@@ -555,6 +592,43 @@ importers:
         specifier: ^6.0.0
         version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
 
+  sites/code-crafters-bold:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      lucide-react:
+        specifier: ^0.300.0
+        version: 0.300.0(react@19.2.4)
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+      react-router-dom:
+        specifier: ^6.20.0
+        version: 6.30.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.3.1
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
   sites/code-crafters-modern-dark:
     dependencies:
       '@heroicons/react':
@@ -622,6 +696,34 @@ importers:
       dotenv:
         specifier: ^17.2.3
         version: 17.3.1
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/de-salon-site:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
       tailwindcss:
         specifier: ^4.0.0
         version: 4.2.1
@@ -1268,6 +1370,230 @@ importers:
         specifier: ^6.0.0
         version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
 
+  sites/test-dentist:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-kapper:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-medical:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-portfolio:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-real-estate:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-restaurant:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-store-fashion:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/test-store-payment:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
   sites/urban-oasis:
     dependencies:
       '@heroicons/react':
@@ -1372,6 +1698,34 @@ importers:
       dotenv:
         specifier: ^17.2.3
         version: 17.3.1
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.2.1
+      vite:
+        specifier: ^6.0.0
+        version: 6.4.1(jiti@2.6.1)(lightningcss@1.31.1)
+
+  sites/urban-sneakers-store:
+    dependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@19.2.4)
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.14
+      react:
+        specifier: ^19.0.0
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@tailwindcss/vite':
+        specifier: ^4.0.0
+        version: 4.2.1(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-react':
+        specifier: ^4.0.0
+        version: 4.7.0(vite@6.4.1(jiti@2.6.1)(lightningcss@1.31.1))
       tailwindcss:
         specifier: ^4.0.0
         version: 4.2.1

@@ -62,8 +62,14 @@ function App() {
 
   const startTool = async (name, url) => {
     addToast(`Starten van ${name}...`, 'info')
-    await ApiService.runScript(`start-${name.toLowerCase().replace(' ', '-')}`)
-    window.open(url, '_blank')
+    try {
+      if (name === 'Dock') await ApiService.startDock()
+      else if (name === 'Layout Editor') await ApiService.startLayoutServer()
+      else await ApiService.runScript(`start-${name.toLowerCase().replace(' ', '-')}`)
+      window.open(url, '_blank')
+    } catch (e) {
+      addToast(`Fout bij starten van ${name}: ${e.message}`, 'error')
+    }
   }
 
   return (
@@ -143,18 +149,48 @@ function App() {
                      <StatBox label="Online (Dev)" value={activeServers.filter(s => !s.isSystem).length} color="text-emerald-500" />
                      <StatBox label="Live op GitHub" value={sites.filter(s => s.status === 'live').length} color="text-athena-accent" />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                    {sites.map((site, idx) => (
-                      <SiteCard 
-                        key={idx} 
-                        site={site} 
-                        activeServer={activeServers.find(s => s.siteName === site.name)}
-                        onRefresh={refreshData}
-                        onSEO={(name) => { setSelectedMarketingSite(name); setIsMarketingOpen(true); }}
-                        onBlog={(name) => { setSelectedBlogSite(name); setIsBlogOpen(true); }}
-                      />
-                    ))}
+
+                  {/* NATIVE ATHENA SITES */}
+                  <div>
+                    <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-athena-accent rounded-full animate-pulse"></span>
+                      Native Athena Projects
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                      {sites.filter(s => s.isNative).map((site, idx) => (
+                        <SiteCard 
+                          key={`native-${idx}`} 
+                          site={site} 
+                          activeServer={activeServers.find(s => s.siteName === site.name)}
+                          onRefresh={refreshData}
+                          onSEO={(name) => { setSelectedMarketingSite(name); setIsMarketingOpen(true); }}
+                          onBlog={(name) => { setSelectedBlogSite(name); setIsBlogOpen(true); }}
+                        />
+                      ))}
+                    </div>
                   </div>
+
+                  {/* EXTERNAL / LEGACY SITES */}
+                  {sites.some(s => !s.isNative) && (
+                    <div className="mt-10 pt-10 border-t border-athena-border/30">
+                      <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
+                        External / Legacy Sites
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 opacity-80">
+                        {sites.filter(s => !s.isNative).map((site, idx) => (
+                          <SiteCard 
+                            key={`external-${idx}`} 
+                            site={site} 
+                            activeServer={activeServers.find(s => s.siteName === site.name)}
+                            onRefresh={refreshData}
+                            onSEO={(name) => { setSelectedMarketingSite(name); setIsMarketingOpen(true); }}
+                            onBlog={(name) => { setSelectedBlogSite(name); setIsBlogOpen(true); }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                </div>
             )}
 
